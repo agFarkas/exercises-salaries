@@ -16,7 +16,8 @@ public class ReportService {
     private static final String REPORT_PATTERN__SUMMARY_MANAGERS_OVERPAID = "Managers with more salary than %s%% of the average salary of their subordinates:";
     private static final String REPORT_PATTERN__SUMMARY_EMPLOYEES_WITH_TOO_LONG_REPORTING_LINE = "Employees with reporting lines longer than %s:";
 
-    private static final String REPORT_PATTERN__MANAGER_PAID = "\t%s %s (%s) - %s (%s%% more than the average salary of their subordinates: %s)";
+    private static final String REPORT_PATTERN__MANAGER_PAID = "\t%s %s (%s) earns %s. The average salary of their subordinates is %s. So the difference is %s from the recommendation." +
+            "";
     private static final String REPORT_PATTERN__EMPLOYEE_WITH_TOO_LONG_REPORTING_LINE = "\t%s %s (%s) - %s long reporting line (%s more)";
 
     private final EmployeeEvaluator employeeEvaluator;
@@ -80,8 +81,8 @@ public class ReportService {
                             manager.getFirstName(), manager.getLastName(),
                             manager.getId(),
                             manager.getSalary(),
-                            evaluator.getRelativePercentage(),
-                            evaluator.getAverageSalaryOfSubordinates()
+                            evaluator.getAverageSalaryOfSubordinates(),
+                            evaluator.calculateDifferenceFromRecommendation()
                     ));
                 });
     }

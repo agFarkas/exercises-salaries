@@ -14,12 +14,15 @@ public class ManagerSalaryDifferenceEvaluator {
 
     private final Employee manager;
 
+    private final BigDecimal managerSalary;
+
     private final BigDecimal averageSalaryOfSubordinates;
 
-    private BigDecimal percentage;
+    private BigDecimal rate;
 
     public ManagerSalaryDifferenceEvaluator(Employee manager, BigDecimal averageSalaryOfSubordinates) {
         this.manager = manager;
+        this.managerSalary = new BigDecimal(manager.getSalary());
         this.averageSalaryOfSubordinates = averageSalaryOfSubordinates;
     }
 
@@ -33,7 +36,7 @@ public class ManagerSalaryDifferenceEvaluator {
 
     public float getRelativePercentage() {
         return calcualtePercentage(
-                obtainPercentage()
+                obtainRate()
         );
     }
 
@@ -51,11 +54,11 @@ public class ManagerSalaryDifferenceEvaluator {
     }
 
     public boolean isLessThanMinimum() {
-        return calculateMinimumToAverage().compareTo(new BigDecimal(manager.getSalary())) > 0;
+        return calculateMinimumToAverage().compareTo(managerSalary) > 0;
     }
 
     public boolean isMoreThanMaximum() {
-        return calculateMaximumToAverage().compareTo(new BigDecimal(manager.getSalary())) < 0;
+        return calculateMaximumToAverage().compareTo(managerSalary) < 0;
     }
 
     private BigDecimal calculateMinimumToAverage() {
@@ -70,18 +73,27 @@ public class ManagerSalaryDifferenceEvaluator {
         );
     }
 
-    private BigDecimal obtainPercentage() {
-        if (Objects.isNull(percentage)) {
-            percentage = calculateDifference()
+    private BigDecimal obtainRate() {
+        if (Objects.isNull(rate)) {
+            rate = calculateDifference()
                     .divide(averageSalaryOfSubordinates, 2, RoundingMode.HALF_UP);
         }
 
-        return percentage;
+        return rate;
     }
 
     private BigDecimal calculateDifference() {
-        var salary = new BigDecimal(manager.getSalary());
-        return salary.subtract(averageSalaryOfSubordinates);
+        return managerSalary.subtract(averageSalaryOfSubordinates);
+    }
+
+    public BigDecimal calculateDifferenceFromRecommendation() {
+        if(isLessThanMinimum()) {
+            return managerSalary.subtract(calculateMinimumToAverage());
+        } else if (isMoreThanMaximum()) {
+            return managerSalary.subtract(calculateMaximumToAverage());
+        }
+
+        return managerSalary;
     }
 
     public Employee getManager() {
@@ -91,4 +103,5 @@ public class ManagerSalaryDifferenceEvaluator {
     public BigDecimal getAverageSalaryOfSubordinates() {
         return averageSalaryOfSubordinates;
     }
+
 }
