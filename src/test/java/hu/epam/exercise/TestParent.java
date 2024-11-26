@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TestParent {
-    private static final String DELIMITER = "(,)";
+    private static final String DELIMITER = ",";
 
     protected static String getAbsoluteFilePathOfResource(String fileName) {
         return TestParent.class.getClassLoader()
