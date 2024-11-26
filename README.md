@@ -6,7 +6,7 @@ The process goes through the following steps:
 
 The validation constists of
 - structural validation
-  1) The header line must consist of the following fields case-sensitively: Id,fristName,lastName,salary,managerId
+  1) The header line must consist of the following fields case-sensitively: Id,firstName,lastName,salary,managerId
   2) every value of an employee is mandatory except managerId
 - logical validation
   1) There must be exactly one CEO
