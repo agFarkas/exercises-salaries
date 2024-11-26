@@ -6,12 +6,12 @@ import hu.epam.test.exercise.evaluation.operations.validation.LogicalValidator;
 import hu.epam.test.exercise.io.connection.operations.validation.StructuralValidator;
 import hu.epam.test.exercise.service.FileReaderService;
 import hu.epam.test.exercise.service.ReportService;
-import org.springframework.stereotype.Service;
+
 
 import static hu.epam.test.exercise.common.util.EmployeeUtil.getEmployeeLines;
 
 
-@Service
+
 public class Application {
 
     private final FileReaderService fileReaderService;

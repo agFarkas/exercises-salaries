@@ -32,7 +32,9 @@ public class ManagerSalaryDifferenceEvaluator {
     }
 
     public float getRelativePercentage() {
-        return calcualtePercentage(percentage);
+        return calcualtePercentage(
+                obtainPercentage()
+        );
     }
 
     private static float getRelativePercentageToAverage(BigDecimal rate) {
@@ -68,7 +70,7 @@ public class ManagerSalaryDifferenceEvaluator {
         );
     }
 
-    private BigDecimal calculatePercentage() {
+    private BigDecimal obtainPercentage() {
         if (Objects.isNull(percentage)) {
             percentage = calculateDifference()
                     .divide(averageSalaryOfSubordinates, 2, RoundingMode.HALF_UP);

@@ -4,12 +4,12 @@ import hu.epam.test.exercise.evaluation.operations.evaluation.EmployeeEvaluator;
 import hu.epam.test.exercise.evaluation.operations.evaluation.EmployeeReportingLineEvaluator;
 import hu.epam.test.exercise.evaluation.operations.evaluation.ManagerSalaryDifferenceEvaluator;
 import hu.epam.test.exercise.model.Employee;
-import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.function.Predicate;
 
-@Service
+
 public class ReportService {
 
     private static final String REPORT_PATTERN__SUMMARY_MANAGERS_UNDERPAID = "Managers with less salary than %s%% of the average salary of their subordinates:";

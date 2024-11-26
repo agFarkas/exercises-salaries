@@ -1,13 +1,13 @@
 package hu.epam.test.exercise.io.connection.operations.validation;
 
-import org.springframework.stereotype.Component;
+
 
 import java.util.List;
 
 import static hu.epam.test.exercise.common.util.EmployeeUtil.getEmployeeLines;
 import static hu.epam.test.exercise.common.util.EmployeeUtil.getHeaderLine;
 
-@Component
+
 public class StructuralValidator {
 
     private final HeaderValidator headerValidator;

@@ -1,14 +1,13 @@
 package hu.epam.test.exercise.evaluation.operations.validation;
 
+import hu.epam.test.exercise.common.util.StringUtils;
 import hu.epam.test.exercise.model.Employee;
 import hu.epam.test.exercise.common.model.ErrorMessage;
-import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
+
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Component
 public class EmployeeIdValidator extends EmployeeLogicalValidator {
 
     private static final String DELIMITER = ", ";
@@ -25,7 +24,7 @@ public class EmployeeIdValidator extends EmployeeLogicalValidator {
     private List<ErrorMessage> validateUniqueIds(List<Employee> employees) {
         var nonUniqueIds = collectNonUniqueIds(employees);
 
-        if (StringUtils.hasText(nonUniqueIds)) {
+        if (!StringUtils.isBlank(nonUniqueIds)) {
             return Collections.singletonList(ErrorMessage.of(ERROR_MESSAGE_PATTERN__NON_UNIQUE_IDS.formatted(nonUniqueIds)));
         }
 

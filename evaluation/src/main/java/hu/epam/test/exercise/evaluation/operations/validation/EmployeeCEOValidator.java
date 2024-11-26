@@ -1,15 +1,16 @@
 package hu.epam.test.exercise.evaluation.operations.validation;
 
+import hu.epam.test.exercise.common.util.CollectionUtils;
 import hu.epam.test.exercise.model.Employee;
 import hu.epam.test.exercise.common.model.ErrorMessage;
-import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
+
+
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-@Component
+
 public class EmployeeCEOValidator extends EmployeeLogicalValidator {
 
     private static final String ERROR_MESSAGE_PATTERN__CEOS_GENERAL = "There must be exactly one CEO. ";

@@ -1,7 +1,7 @@
 package hu.epam.test.exercise.evaluation.operations.mapping;
 
 import hu.epam.test.exercise.model.Employee;
-import org.springframework.stereotype.Component;
+
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import static hu.epam.test.exercise.common.util.EmployeeUtil.getValue;
 import static hu.epam.test.exercise.common.util.EmployeeUtil.indexOfFieldName;
 
 
-@Component
+
 public class EmployeeMapper {
 
     public List<Employee> mapEmployees(List<String[]> employeeLines) {

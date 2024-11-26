@@ -2,7 +2,7 @@ package hu.epam.test.exercise.common.validation;
 
 import hu.epam.test.exercise.common.exception.ValidationException;
 import hu.epam.test.exercise.common.model.ErrorMessage;
-import org.springframework.util.CollectionUtils;
+import hu.epam.test.exercise.common.util.CollectionUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;

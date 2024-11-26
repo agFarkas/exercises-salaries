@@ -1,9 +1,10 @@
 package hu.epam.test.exercise.evaluation.operations.validation;
 
+import hu.epam.test.exercise.common.util.CollectionUtils;
 import hu.epam.test.exercise.model.Employee;
 import hu.epam.test.exercise.common.model.ErrorMessage;
-import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
+
+
 
 import java.util.List;
 import java.util.LinkedList;
@@ -14,7 +15,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Component
+
 public class EmployeeReportingLineValidator extends EmployeeLogicalValidator {
 
     private static final String CHAIN_DELIMITER = " -> ";

@@ -1,7 +1,6 @@
 package hu.epam.test.exercise.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import hu.epam.test.exercise.common.util.StringUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,13 +10,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-@Service
 public class FileReaderService {
 
     private static final String DELIMITER = ",";
 
     public List<String[]> readTableLines(String fileName) {
-        if (!StringUtils.hasText(fileName)) {
+        if (StringUtils.isBlank(fileName)) {
             throw new RuntimeException("The filename is blank!");
         }
 

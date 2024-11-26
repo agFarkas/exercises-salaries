@@ -1,11 +1,12 @@
 package hu.epam.test.exercise.io.connection.operations.validation;
 
 import hu.epam.test.exercise.common.model.EmployeeField;
-import hu.epam.test.exercise.common.validation.AbstractValidator;
 import hu.epam.test.exercise.common.model.ErrorMessage;
-import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
+import hu.epam.test.exercise.common.util.CollectionUtils;
+import hu.epam.test.exercise.common.util.StringUtils;
+import hu.epam.test.exercise.common.validation.AbstractValidator;
+
+
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +19,7 @@ import static hu.epam.test.exercise.common.model.EmployeeField.*;
 import static hu.epam.test.exercise.common.util.EmployeeUtil.*;
 
 
-@Component
+
 public class EmployeeStructuralValidator extends AbstractValidator<String[]> {
 
     private static final String ERROR_MESSAGE_PATTERN__INDIVIDUAL_DETAILED = "Error(s) in validation of employee line %s\n";
@@ -111,7 +112,7 @@ public class EmployeeStructuralValidator extends AbstractValidator<String[]> {
 
     private Optional<ErrorMessage> validateText(String[] employeeLine, EmployeeField fieldName) {
         var text = getValue(employeeLine, fieldName);
-        if (!StringUtils.hasText(text)) {
+        if (StringUtils.isBlank(text)) {
             return Optional.of(ErrorMessage.of(ERROR_MESSAGE_PATTERN__FIELD_IS_BLANK.formatted(fieldName.getFieldName())));
         }
 

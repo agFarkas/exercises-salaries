@@ -1,13 +1,14 @@
 package hu.epam.test.exercise.evaluation.operations.evaluation;
 
 import hu.epam.test.exercise.model.Employee;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
-@Component
 public class EmployeeEvaluator {
 
     public List<ManagerSalaryDifferenceEvaluator> collectManagersEarningOutOfRecommendations(List<Employee> allEmployees) {

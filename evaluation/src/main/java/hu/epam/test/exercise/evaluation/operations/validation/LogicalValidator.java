@@ -1,11 +1,11 @@
 package hu.epam.test.exercise.evaluation.operations.validation;
 
 import hu.epam.test.exercise.model.Employee;
-import org.springframework.stereotype.Component;
+
 
 import java.util.List;
 
-@Component
+
 public class LogicalValidator {
 
     private final EmployeeIdValidator employeeIdValidator;
