@@ -31,16 +31,23 @@ public class EmployeeEvaluator {
     }
 
     private ManagerSalaryDifferenceEvaluator makeSalaryDifferenceCalculator(Employee manager, List<Employee> allEmployees) {
-        var subordinates = allEmployees.stream()
-                .filter(employee -> isSubordinateOf(manager, employee))
-                .toList();
-
-        var average = subordinates.stream()
-                .mapToDouble(Employee::getSalary)
-                .average()
-                .getAsDouble();
+        var subordinates = obtainSubordinates(manager, allEmployees);
+        var average = calculateAverageSalary(subordinates);
 
         return new ManagerSalaryDifferenceEvaluator(manager, new BigDecimal(average));
+    }
+
+    private List<Employee> obtainSubordinates(Employee manager, List<Employee> allEmployees) {
+        return allEmployees.stream()
+                .filter(employee -> isSubordinateOf(manager, employee))
+                .toList();
+    }
+
+    private static double calculateAverageSalary(List<Employee> subordinates) {
+        return subordinates.stream()
+                .mapToDouble(Employee::getSalary)
+                .average()
+                .orElse(0.0);
     }
 
     private boolean isSubordinateOf(Employee manager, Employee employee) {
@@ -73,8 +80,6 @@ public class EmployeeEvaluator {
             reportingLine.add(currentEmployee.get());
 
         } while (!currentEmployee.get().isCEO());
-
-
 
         return new EmployeeReportingLineEvaluator(employee, reportingLine);
     }
