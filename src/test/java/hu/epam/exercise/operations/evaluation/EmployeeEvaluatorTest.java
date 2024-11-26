@@ -48,6 +48,6 @@ public class EmployeeEvaluatorTest {
                 .map(Employee::getId)
                 .toList();
 
-        assertThat(managerIds).containsExactlyInAnyOrder(1, 2, 8, 10);
+        assertThat(managerIds).containsExactlyInAnyOrder(1, 2, 10);
     }
 }

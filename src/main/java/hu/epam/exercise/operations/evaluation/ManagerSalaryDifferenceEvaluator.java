@@ -49,11 +49,23 @@ public class ManagerSalaryDifferenceEvaluator {
     }
 
     public boolean isLessThanMinimum() {
-        return calculatePercentage().compareTo(MINIMUM_RECOMMENDED_PLUS_RATE) < 0;
+        return calculateMinimumToAverage().compareTo(new BigDecimal(manager.getSalary())) > 0;
     }
 
     public boolean isMoreThanMaximum() {
-        return calculatePercentage().compareTo(MAXIMUM_RECOMMENDED_PLUS_RATE) > 0;
+        return calculateMaximumToAverage().compareTo(new BigDecimal(manager.getSalary())) < 0;
+    }
+
+    private BigDecimal calculateMinimumToAverage() {
+        return averageSalaryOfSubordinates.multiply(
+                MINIMUM_RECOMMENDED_PLUS_RATE.add(BigDecimal.ONE)
+        );
+    }
+
+    private BigDecimal calculateMaximumToAverage() {
+        return averageSalaryOfSubordinates.multiply(
+                MAXIMUM_RECOMMENDED_PLUS_RATE.add(BigDecimal.ONE)
+        );
     }
 
     private BigDecimal calculatePercentage() {
