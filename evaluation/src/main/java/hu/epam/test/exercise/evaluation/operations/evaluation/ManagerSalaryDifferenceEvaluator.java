@@ -4,6 +4,7 @@ import hu.epam.test.exercise.model.Employee;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 import java.util.Objects;
 
 public class ManagerSalaryDifferenceEvaluator {
@@ -20,10 +21,29 @@ public class ManagerSalaryDifferenceEvaluator {
 
     private BigDecimal rate;
 
-    public ManagerSalaryDifferenceEvaluator(Employee manager, BigDecimal averageSalaryOfSubordinates) {
+    public ManagerSalaryDifferenceEvaluator(Employee manager, List<Employee> allEmployees) {
         this.manager = manager;
-        this.managerSalary = new BigDecimal(manager.getSalary());
-        this.averageSalaryOfSubordinates = averageSalaryOfSubordinates;
+        this.managerSalary = BigDecimal.valueOf(manager.getSalary());
+
+        var subordinates = obtainSubordinates(manager, allEmployees);
+        this.averageSalaryOfSubordinates = BigDecimal.valueOf(calculateAverageSalary(subordinates));
+    }
+
+    private List<Employee> obtainSubordinates(Employee manager, List<Employee> allEmployees) {
+        return allEmployees.stream()
+                .filter(employee -> isSubordinateOf(manager, employee))
+                .toList();
+    }
+
+    private boolean isSubordinateOf(Employee manager, Employee employee) {
+        return Objects.equals(employee.getManagerId(), manager.getId());
+    }
+
+    private static double calculateAverageSalary(List<Employee> subordinates) {
+        return subordinates.stream()
+                .mapToDouble(Employee::getSalary)
+                .average()
+                .orElse(0.0);
     }
 
     public static float getMinimumPlusSalaryRate() {
@@ -34,18 +54,12 @@ public class ManagerSalaryDifferenceEvaluator {
         return getRelativePercentageToAverage(MAXIMUM_RECOMMENDED_PLUS_RATE);
     }
 
-    public float getRelativePercentage() {
-        return calcualtePercentage(
-                obtainRate()
-        );
-    }
-
     private static float getRelativePercentageToAverage(BigDecimal rate) {
-        return calcualtePercentage(rate.add(new BigDecimal(1)));
+        return calcualtePercentage(rate.add(BigDecimal.ONE));
     }
 
     private static float calcualtePercentage(BigDecimal absoluteRate) {
-        return absoluteRate.multiply(new BigDecimal(100))
+        return absoluteRate.multiply(BigDecimal.valueOf(100))
                 .floatValue();
     }
 

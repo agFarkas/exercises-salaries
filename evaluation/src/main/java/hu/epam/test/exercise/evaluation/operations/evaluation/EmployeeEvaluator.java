@@ -32,28 +32,10 @@ public class EmployeeEvaluator {
     }
 
     private ManagerSalaryDifferenceEvaluator makeSalaryDifferenceCalculator(Employee manager, List<Employee> allEmployees) {
-        var subordinates = obtainSubordinates(manager, allEmployees);
-        var average = calculateAverageSalary(subordinates);
-
-        return new ManagerSalaryDifferenceEvaluator(manager, new BigDecimal(average));
+        return new ManagerSalaryDifferenceEvaluator(manager, allEmployees);
     }
 
-    private List<Employee> obtainSubordinates(Employee manager, List<Employee> allEmployees) {
-        return allEmployees.stream()
-                .filter(employee -> isSubordinateOf(manager, employee))
-                .toList();
-    }
 
-    private static double calculateAverageSalary(List<Employee> subordinates) {
-        return subordinates.stream()
-                .mapToDouble(Employee::getSalary)
-                .average()
-                .orElse(0.0);
-    }
-
-    private boolean isSubordinateOf(Employee manager, Employee employee) {
-        return Objects.equals(employee.getManagerId(), manager.getId());
-    }
 
     private List<Employee> collectManagers(List<Employee> allEmployees) {
         var allEmployeesCopy = new LinkedList<>(allEmployees);
