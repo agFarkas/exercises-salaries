@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 public class EmployeeEvaluatorTest {
 
@@ -31,13 +31,12 @@ public class EmployeeEvaluatorTest {
     @Test
     void collectEmployeesWithTooLongReportingLinesTest() {
         var concernedEmployees = employeeEvaluator.collectEmployeesWithTooLongReportingLines(allEmployees);
-        assertThat(concernedEmployees).hasSize(3);
         var employeeIds = concernedEmployees.stream()
                 .map(EmployeeReportingLineEvaluator::getEmployee)
                 .map(Employee::getId)
                 .toList();
 
-        assertThat(employeeIds).containsExactlyInAnyOrder(8, 10, 11);
+        assertIterableEquals(List.of(8, 10, 11), employeeIds);
     }
 
     @Test
@@ -48,6 +47,6 @@ public class EmployeeEvaluatorTest {
                 .map(Employee::getId)
                 .toList();
 
-        assertThat(managerIds).containsExactlyInAnyOrder(1, 2, 10);
+        assertIterableEquals(List.of(1, 2, 10), managerIds);
     }
 }

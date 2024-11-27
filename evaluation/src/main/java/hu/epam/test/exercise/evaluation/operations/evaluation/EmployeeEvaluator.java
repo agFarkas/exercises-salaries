@@ -2,12 +2,9 @@ package hu.epam.test.exercise.evaluation.operations.evaluation;
 
 import hu.epam.test.exercise.model.Employee;
 
-import java.math.BigDecimal;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class EmployeeEvaluator {
 
@@ -25,7 +22,7 @@ public class EmployeeEvaluator {
         var allEmployeesCopy = new LinkedList<>(allEmployees);
 
         return allEmployees.stream()
-                .map(emp -> buildReportingLineOfEmployee(emp, allEmployeesCopy))
+                .map(employee -> buildReportingLineOfEmployee(employee, allEmployeesCopy))
                 .filter(EmployeeReportingLineEvaluator::isLongerThanRecommended)
                 .toList();
 
@@ -41,7 +38,7 @@ public class EmployeeEvaluator {
         var allEmployeesCopy = new LinkedList<>(allEmployees);
 
         return allEmployees.stream()
-                .filter(emp -> isAssignedAsManager(emp, allEmployeesCopy))
+                .filter(employee -> isAssignedAsManager(employee, allEmployeesCopy))
                 .toList();
     }
 
@@ -51,19 +48,7 @@ public class EmployeeEvaluator {
     }
 
     private EmployeeReportingLineEvaluator buildReportingLineOfEmployee(Employee employee, List<Employee> allEmployees) {
-        var reportingLine = new LinkedHashSet<Employee>();
-        var currentEmployee = new AtomicReference<>(employee);
-
-        do {
-            allEmployees.stream()
-                    .filter(emp -> Objects.equals(emp.getId(), currentEmployee.get().getManagerId()))
-                    .findAny()
-                    .ifPresent(currentEmployee::set);
-
-            reportingLine.add(currentEmployee.get());
-
-        } while (!currentEmployee.get().isCEO());
-
-        return new EmployeeReportingLineEvaluator(employee, reportingLine);
+        return new EmployeeReportingLineEvaluator(employee, allEmployees);
     }
+
 }

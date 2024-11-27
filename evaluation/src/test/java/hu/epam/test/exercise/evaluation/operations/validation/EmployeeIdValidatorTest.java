@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EmployeeIdValidatorTest {
 
@@ -31,11 +31,13 @@ public class EmployeeIdValidatorTest {
 
     @Test
     void idValidationTest() {
-        assertThatThrownBy(() -> employeeIdValidator.validate(allEmployees))
-                .isExactlyInstanceOf(ValidationException.class)
-                .hasMessage(
-                        "Error(s) in validation:\n" +
-                                "\tThe following Id-s are not unique: 1, 5"
-                );
+        var exception = assertThrowsExactly(
+                ValidationException.class,
+                () -> employeeIdValidator.validate(allEmployees)
+        );
+
+        assertEquals("Error(s) in validation:\n" +
+                "\tThe following Id-s are not unique: 1, 5",
+                exception.getMessage());
     }
 }

@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.UncheckedIOException;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class FileReaderServiceTest extends TestParent {
 
@@ -17,28 +16,34 @@ public class FileReaderServiceTest extends TestParent {
         var resourceFilePath = getAbsoluteFilePathOfResource("employees-valid.csv");
 
         var lines = fileReaderService.readTableLines(resourceFilePath);
-        assertThat(lines).hasSize(6);
-
-        assertThat(lines.getFirst()).hasSize(5);
+        assertEquals(6, lines.size());
+        assertEquals(5, lines.getFirst().length);
     }
 
     @Test
     void rejectReadingFileWithNullFileNameTest() {
-        assertThatThrownBy(() -> fileReaderService.readTableLines(null))
-                .isExactlyInstanceOf(RuntimeException.class)
-                .hasMessage("The filename is blank!");
+        var exception = assertThrowsExactly(
+                RuntimeException.class,
+                () -> fileReaderService.readTableLines(null)
+        );
+        assertEquals("The filename is blank!", exception.getMessage());
     }
 
     @Test
     void rejectReadingFileWithBlankFileNameTest() {
-        assertThatThrownBy(() -> fileReaderService.readTableLines(" "))
-                .isExactlyInstanceOf(RuntimeException.class)
-                .hasMessage("The filename is blank!");
+        var exception = assertThrowsExactly(
+                RuntimeException.class,
+                () -> fileReaderService.readTableLines(" ")
+        );
+
+        assertEquals("The filename is blank!", exception.getMessage());
     }
 
     @Test
     void rejectReadingFileWithInvalidFileNameTest() {
-        assertThatThrownBy(() -> fileReaderService.readTableLines("invalid-dummy.csv"))
-                .isExactlyInstanceOf(UncheckedIOException.class);
+        assertThrowsExactly(
+                UncheckedIOException.class,
+                () -> fileReaderService.readTableLines("invalid-dummy.csv")
+        );
     }
 }

@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class HeaderValidatorTest extends TestParent {
 
@@ -17,8 +16,7 @@ public class HeaderValidatorTest extends TestParent {
     @Test
     void validHeaderTest() {
         var tableLines = readTableLines("employees-valid.csv");
-        assertThatCode(() -> headerValidator.validate(EmployeeUtil.getHeaderLine(tableLines)))
-                .doesNotThrowAnyException();
+        assertDoesNotThrow(() -> headerValidator.validate(EmployeeUtil.getHeaderLine(tableLines)));
     }
 
     @Test
@@ -34,11 +32,15 @@ public class HeaderValidatorTest extends TestParent {
     }
 
     private void assertValidationErrorMessage(List<String[]> tableLines) {
-        assertThatThrownBy(() -> headerValidator.validate(EmployeeUtil.getHeaderLine(tableLines)))
-                .isExactlyInstanceOf(ValidationException.class)
-                .hasMessage(
-                        "Error(s) in validation:\n" +
-                                "\tThe file headline must be exactly as follows: Id, firstName, lastName, salary, managerId"
-                );
+        var exception = assertThrowsExactly(
+                ValidationException.class,
+                () -> headerValidator.validate(EmployeeUtil.getHeaderLine(tableLines))
+        );
+
+        assertEquals(
+                "Error(s) in validation:\n" +
+                "\tThe file headline must be exactly as follows: Id, firstName, lastName, salary, managerId",
+                exception.getMessage()
+        );
     }
 }

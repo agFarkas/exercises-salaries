@@ -1,9 +1,9 @@
 package hu.epam.test.exercise.evaluation.operations.evaluation;
 
+import hu.epam.test.exercise.common.util.CollectionUtils;
 import hu.epam.test.exercise.model.Employee;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,10 +14,12 @@ public class ManagerSalaryDifferenceEvaluator {
     private final static BigDecimal MAXIMUM_RECOMMENDED_PLUS_RATE = new BigDecimal("0.5");
 
     private final Employee manager;
+    private final List<Employee> subordinates;
 
     private final BigDecimal managerSalary;
 
     private final BigDecimal averageSalaryOfSubordinates;
+
 
     private BigDecimal rate;
 
@@ -25,7 +27,7 @@ public class ManagerSalaryDifferenceEvaluator {
         this.manager = manager;
         this.managerSalary = BigDecimal.valueOf(manager.getSalary());
 
-        var subordinates = obtainSubordinates(manager, allEmployees);
+        this.subordinates = obtainSubordinates(manager, allEmployees);
         this.averageSalaryOfSubordinates = BigDecimal.valueOf(calculateAverageSalary(subordinates));
     }
 
@@ -40,10 +42,26 @@ public class ManagerSalaryDifferenceEvaluator {
     }
 
     private static double calculateAverageSalary(List<Employee> subordinates) {
-        return subordinates.stream()
+        double average = subordinates.stream()
                 .mapToDouble(Employee::getSalary)
                 .average()
-                .orElse(0.0);
+                .orElse(0);
+
+        return round(average, 2);
+    }
+
+    private static double round(double average, int precision) {
+        if(average == 0) {
+            return 0;
+        }
+
+        var tenPow = Math.pow(10, precision);
+        var avgToRound = average;
+
+        avgToRound *= tenPow;
+        avgToRound = Math.round(avgToRound);
+
+        return avgToRound / tenPow;
     }
 
     public static float getMinimumPlusSalaryRate() {
@@ -68,10 +86,18 @@ public class ManagerSalaryDifferenceEvaluator {
     }
 
     public boolean isLessThanMinimum() {
+        if (CollectionUtils.isEmpty(subordinates)) {
+            return false;
+        }
+
         return calculateMinimumToAverage().compareTo(managerSalary) > 0;
     }
 
     public boolean isMoreThanMaximum() {
+        if (CollectionUtils.isEmpty(subordinates)) {
+            return false;
+        }
+
         return calculateMaximumToAverage().compareTo(managerSalary) < 0;
     }
 
@@ -87,27 +113,14 @@ public class ManagerSalaryDifferenceEvaluator {
         );
     }
 
-    private BigDecimal obtainRate() {
-        if (Objects.isNull(rate)) {
-            rate = calculateDifference()
-                    .divide(averageSalaryOfSubordinates, 2, RoundingMode.HALF_UP);
-        }
-
-        return rate;
-    }
-
-    private BigDecimal calculateDifference() {
-        return managerSalary.subtract(averageSalaryOfSubordinates);
-    }
-
     public BigDecimal calculateDifferenceFromRecommendation() {
-        if(isLessThanMinimum()) {
+        if (isLessThanMinimum()) {
             return managerSalary.subtract(calculateMinimumToAverage());
         } else if (isMoreThanMaximum()) {
             return managerSalary.subtract(calculateMaximumToAverage());
         }
 
-        return managerSalary;
+        return BigDecimal.ZERO;
     }
 
     public Employee getManager() {
