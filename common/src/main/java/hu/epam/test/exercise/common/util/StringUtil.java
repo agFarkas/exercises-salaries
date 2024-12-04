@@ -7,6 +7,6 @@ public class StringUtil {
     private StringUtil() {}
 
     public static boolean isBlank(String text) {
-        return Objects.isNull(text) || text.trim().isBlank();
+        return Objects.isNull(text) || text.isBlank();
     }
 }

@@ -25,11 +25,12 @@ public class FileReaderService {
             var lines = new LinkedList<String[]>();
 
             while (scanner.hasNextLine()) {
-                var lineArray = scanner.nextLine()
-                        .trim()
-                        .split(DELIMITER);
+                var line = scanner.nextLine();
 
-                lines.add(lineArray);
+                if (!StringUtil.isBlank(line)) {
+                    var lineArray = line.split(DELIMITER);
+                    lines.add(lineArray);
+                }
             }
 
             return lines;

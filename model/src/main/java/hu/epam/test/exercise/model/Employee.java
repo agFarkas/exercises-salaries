@@ -3,7 +3,7 @@ package hu.epam.test.exercise.model;
 import java.util.Objects;
 
 public final class Employee {
-    
+
     private final int id;
     private final String firstName;
     private final String lastName;
