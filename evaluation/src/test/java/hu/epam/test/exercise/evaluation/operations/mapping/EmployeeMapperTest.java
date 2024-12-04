@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeMapperTest {
 
-    private final EmployeeMapper employeeMapper = new EmployeeMapper();
+    private final EmployeeListMapper employeeMapper = new EmployeeListMapper();
 
     @Test
     void mapEmployeesTest() {
@@ -20,7 +20,7 @@ class EmployeeMapperTest {
                 new String[] {"305","Brett","Hardleaf","34000","300"}
         );
 
-        var employees = employeeMapper.mapEmployees(employeeLines);
+        var employees = employeeMapper.mapAll(employeeLines);
 
         assertEquals(5, employees.size());
         var employee1 = employees.getFirst();

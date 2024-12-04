@@ -1,41 +1,27 @@
 package hu.epam.test.exercise.io.connection.service;
 
+import hu.epam.test.exercise.common.exception.ValidationException;
 import hu.epam.test.exercise.common.util.StringUtil;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
 
-public class FileReaderService {
+public class FileReaderService extends AbstractInputReaderService {
 
-    private static final String DELIMITER = ",";
+    private static final String ERROR_MESSAGE__BLANK_FILE_NAME = "The filename is blank!";
 
-    public List<String[]> readTableLines(String fileName) {
+    private final String fileName;
+
+    public FileReaderService(String fileName) {
         if (StringUtil.isBlank(fileName)) {
-            throw new RuntimeException("The filename is blank!");
+            throw new ValidationException(ERROR_MESSAGE__BLANK_FILE_NAME);
         }
 
-        var file = new File(fileName);
+        this.fileName = fileName;
+    }
 
-        try (var scanner = new Scanner(new FileInputStream(file))) {
-            var lines = new LinkedList<String[]>();
-
-            while (scanner.hasNextLine()) {
-                var line = scanner.nextLine();
-
-                if (!StringUtil.isBlank(line)) {
-                    var lineArray = line.split(DELIMITER);
-                    lines.add(lineArray);
-                }
-            }
-
-            return lines;
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
+    @Override
+    protected FileInputStream makeInputStream() throws IOException {
+        return new FileInputStream(fileName);
     }
 }

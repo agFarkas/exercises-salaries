@@ -1,6 +1,7 @@
 package hu.epam.test.exercise.evaluation.operations.validation;
 
 import hu.epam.test.exercise.common.util.CollectionUtil;
+import hu.epam.test.exercise.common.validation.AbstractListValidator;
 import hu.epam.test.exercise.model.Employee;
 import hu.epam.test.exercise.common.model.ErrorMessage;
 
@@ -8,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class EmployeeCEOValidator extends EmployeeLogicalValidator {
+public class EmployeeCEOValidator extends AbstractListValidator<Employee> {
 
     private static final String ERROR_MESSAGE_PATTERN__CEOS_GENERAL = "There must be exactly one CEO. ";
     private static final String ERROR_MESSAGE_PATTERN__CEOS_NO =

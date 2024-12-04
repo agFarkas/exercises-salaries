@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 class EmployeeEvaluatorTest {
 
-    private EmployeeEvaluator employeeEvaluator = new EmployeeEvaluator();
+    private EmployeeEvaluatorImpl employeeEvaluator = new EmployeeEvaluatorImpl();
 
     private final List<Employee> allEmployees = List.of(
             Employee.of(1, "John", "Doe", 105000, null),

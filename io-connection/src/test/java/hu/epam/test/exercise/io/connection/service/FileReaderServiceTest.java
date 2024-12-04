@@ -1,22 +1,22 @@
 package hu.epam.test.exercise.io.connection.service;
 
+import hu.epam.test.exercise.common.exception.ValidationException;
 import hu.epam.test.exercise.io.connection.TestParent;
-import hu.epam.test.exercise.io.connection.service.FileReaderService;
 import org.junit.jupiter.api.Test;
 
 import java.io.UncheckedIOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 class FileReaderServiceTest extends TestParent {
-
-    private final FileReaderService fileReaderService = new FileReaderService();
 
     @Test
     void readFileTest() {
         var resourceFilePath = getAbsoluteFilePathOfResource("employees-valid.csv");
+        var fileReaderService = new FileReaderService(resourceFilePath);
 
-        var lines = fileReaderService.readTableLines(resourceFilePath);
+        var lines = fileReaderService.readTableLines();
         assertEquals(6, lines.size());
         assertEquals(5, lines.getFirst().length);
     }
@@ -24,8 +24,8 @@ class FileReaderServiceTest extends TestParent {
     @Test
     void rejectReadingFileWithNullFileNameTest() {
         var exception = assertThrowsExactly(
-                RuntimeException.class,
-                () -> fileReaderService.readTableLines(null)
+                ValidationException.class,
+                () -> new FileReaderService(null)
         );
         assertEquals("The filename is blank!", exception.getMessage());
     }
@@ -33,8 +33,8 @@ class FileReaderServiceTest extends TestParent {
     @Test
     void rejectReadingFileWithBlankFileNameTest() {
         var exception = assertThrowsExactly(
-                RuntimeException.class,
-                () -> fileReaderService.readTableLines(" ")
+                ValidationException.class,
+                () -> new FileReaderService(" ")
         );
 
         assertEquals("The filename is blank!", exception.getMessage());
@@ -44,7 +44,7 @@ class FileReaderServiceTest extends TestParent {
     void rejectReadingFileWithInvalidFileNameTest() {
         assertThrowsExactly(
                 UncheckedIOException.class,
-                () -> fileReaderService.readTableLines("invalid-dummy.csv")
+                () -> new FileReaderService("invalid-dummy.csv").readTableLines()
         );
     }
 }

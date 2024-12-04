@@ -1,6 +1,7 @@
 package hu.epam.test.exercise.evaluation.operations.validation;
 
 import hu.epam.test.exercise.common.util.StringUtil;
+import hu.epam.test.exercise.common.validation.AbstractListValidator;
 import hu.epam.test.exercise.model.Employee;
 import hu.epam.test.exercise.common.model.ErrorMessage;
 
@@ -8,7 +9,7 @@ import hu.epam.test.exercise.common.model.ErrorMessage;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class EmployeeIdValidator extends EmployeeLogicalValidator {
+public class EmployeeIdValidator extends AbstractListValidator<Employee> {
 
     private static final String DELIMITER = ", ";
     private static final String ERROR_MESSAGE_PATTERN__NON_UNIQUE_IDS = "The following Id-s are not unique: %s";

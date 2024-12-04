@@ -1,53 +1,49 @@
 package hu.epam.test.exercise;
 
 import hu.epam.test.exercise.common.exception.ValidationException;
-import hu.epam.test.exercise.evaluation.operations.mapping.EmployeeMapper;
-import hu.epam.test.exercise.evaluation.operations.validation.LogicalValidator;
-import hu.epam.test.exercise.io.connection.operations.validation.StructuralValidator;
-import hu.epam.test.exercise.io.connection.service.FileReaderService;
-import hu.epam.test.exercise.io.connection.service.ReportService;
+import hu.epam.test.exercise.common.validation.AbstractValidator;
+import hu.epam.test.exercise.evaluation.operations.mapping.AbstractListMapper;
+import hu.epam.test.exercise.io.connection.service.AbstractInputReaderService;
+import hu.epam.test.exercise.io.connection.service.StdoReportService;
+import hu.epam.test.exercise.model.Employee;
 
 
 import java.io.UncheckedIOException;
+import java.util.List;
 
 import static hu.epam.test.exercise.common.util.EmployeeUtil.getEmployeeLines;
 
 
 public class Application {
 
-    private final FileReaderService fileReaderService;
+    private final AbstractInputReaderService inputReaderService;
 
-    private final StructuralValidator structuralValidator;
-    private final LogicalValidator logicalValidator;
+    private final AbstractValidator<List<String[]>> structuralValidator;
+    private final AbstractValidator<List<Employee>> logicalValidator;
 
-    private final EmployeeMapper employeeMapper;
+    private final AbstractListMapper<String[], Employee> employeeListMapper;
 
-    private final ReportService reportService;
+    private final StdoReportService reportService;
 
     public Application(
-            FileReaderService fileReaderService,
-            StructuralValidator structuralValidator,
-            LogicalValidator logicalValidator,
-            EmployeeMapper employeeMapper,
-            ReportService reportService
+            AbstractInputReaderService inputReaderService,
+            AbstractValidator<List<String[]>> structuralValidator,
+            AbstractValidator<List<Employee>> logicalValidator,
+            AbstractListMapper<String[], Employee> employeeListMapper,
+            StdoReportService reportService
     ) {
-        this.fileReaderService = fileReaderService;
+        this.inputReaderService = inputReaderService;
         this.structuralValidator = structuralValidator;
         this.logicalValidator = logicalValidator;
-        this.employeeMapper = employeeMapper;
+        this.employeeListMapper = employeeListMapper;
         this.reportService = reportService;
     }
 
-    public void run(String[] args) {
+    public void run() {
         try {
-            if (args.length == 0) {
-                System.out.println("No file path provided.");
-                return;
-            }
-
-            var lines = fileReaderService.readTableLines(args[0]);
+            var lines = inputReaderService.readTableLines();
             structuralValidator.validate(lines);
-            var employees = employeeMapper.mapEmployees(getEmployeeLines(lines));
+            var employees = employeeListMapper.mapAll(getEmployeeLines(lines));
             logicalValidator.validate(employees);
 
             reportService.report(employees);

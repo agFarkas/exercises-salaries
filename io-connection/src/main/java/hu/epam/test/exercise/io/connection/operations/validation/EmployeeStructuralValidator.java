@@ -4,7 +4,7 @@ import hu.epam.test.exercise.common.model.EmployeeField;
 import hu.epam.test.exercise.common.model.ErrorMessage;
 import hu.epam.test.exercise.common.util.CollectionUtil;
 import hu.epam.test.exercise.common.util.StringUtil;
-import hu.epam.test.exercise.common.validation.AbstractValidator;
+import hu.epam.test.exercise.common.validation.AbstractListValidator;
 
 
 
@@ -20,7 +20,7 @@ import static hu.epam.test.exercise.common.util.EmployeeUtil.*;
 
 
 
-public class EmployeeStructuralValidator extends AbstractValidator<String[]> {
+public class EmployeeStructuralValidator extends AbstractListValidator<String[]> {
 
     private static final String ERROR_MESSAGE_PATTERN__INDIVIDUAL_DETAILED = "Error(s) in validation of employee line %s\n";
 
