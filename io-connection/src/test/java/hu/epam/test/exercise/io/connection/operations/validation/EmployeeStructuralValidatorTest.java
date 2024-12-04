@@ -13,7 +13,7 @@ class EmployeeStructuralValidatorTest extends TestParent {
 
     @Test
     void validEmployeesTest() {
-        var tableLines = readTableLines("employees-valid.csv");
+        var tableLines = readTableLines("employees.csv");
         assertDoesNotThrow(() -> employeeStructuralValidator.validate(EmployeeUtil.getEmployeeLines(tableLines)));
     }
 
