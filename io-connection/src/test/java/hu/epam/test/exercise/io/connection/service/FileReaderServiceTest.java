@@ -1,6 +1,7 @@
-package hu.epam.test.exercise.service;
+package hu.epam.test.exercise.io.connection.service;
 
 import hu.epam.test.exercise.io.connection.TestParent;
+import hu.epam.test.exercise.io.connection.service.FileReaderService;
 import org.junit.jupiter.api.Test;
 
 import java.io.UncheckedIOException;

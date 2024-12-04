@@ -9,8 +9,8 @@ import hu.epam.test.exercise.evaluation.operations.validation.LogicalValidator;
 import hu.epam.test.exercise.io.connection.operations.validation.EmployeeStructuralValidator;
 import hu.epam.test.exercise.io.connection.operations.validation.HeaderValidator;
 import hu.epam.test.exercise.io.connection.operations.validation.StructuralValidator;
-import hu.epam.test.exercise.service.FileReaderService;
-import hu.epam.test.exercise.service.ReportService;
+import hu.epam.test.exercise.io.connection.service.FileReaderService;
+import hu.epam.test.exercise.io.connection.service.ReportService;
 
 public class Main {
 

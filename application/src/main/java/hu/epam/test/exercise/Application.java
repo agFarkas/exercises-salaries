@@ -4,8 +4,8 @@ import hu.epam.test.exercise.common.exception.ValidationException;
 import hu.epam.test.exercise.evaluation.operations.mapping.EmployeeMapper;
 import hu.epam.test.exercise.evaluation.operations.validation.LogicalValidator;
 import hu.epam.test.exercise.io.connection.operations.validation.StructuralValidator;
-import hu.epam.test.exercise.service.FileReaderService;
-import hu.epam.test.exercise.service.ReportService;
+import hu.epam.test.exercise.io.connection.service.FileReaderService;
+import hu.epam.test.exercise.io.connection.service.ReportService;
 
 
 import java.io.UncheckedIOException;
