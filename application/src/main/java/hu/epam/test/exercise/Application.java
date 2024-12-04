@@ -8,8 +8,9 @@ import hu.epam.test.exercise.service.FileReaderService;
 import hu.epam.test.exercise.service.ReportService;
 
 
-import static hu.epam.test.exercise.common.util.EmployeeUtil.getEmployeeLines;
+import java.io.UncheckedIOException;
 
+import static hu.epam.test.exercise.common.util.EmployeeUtil.getEmployeeLines;
 
 
 public class Application {
@@ -51,11 +52,14 @@ public class Application {
 
             reportService.report(employees);
 
+        } catch (UncheckedIOException ex) {
+            System.out.println("Error with resources:");
+            ex.printStackTrace();
         } catch (ValidationException ex) {
-            System.out.println("Validation issues: ");
+            System.out.println("Validation issues:");
             ex.printStackTrace();
         } catch (Exception ex) {
-            System.out.println("Error while reporting: ");
+            System.out.println("Error while reporting:");
             ex.printStackTrace();
         }
     }
