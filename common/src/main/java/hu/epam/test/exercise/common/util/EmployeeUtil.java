@@ -8,6 +8,8 @@ import java.util.stream.Stream;
 
 public class EmployeeUtil {
 
+    private EmployeeUtil() {}
+
     public static final String FIELD_NAMES_JOINED = Stream.of(EmployeeField.values())
             .map(EmployeeField::getFieldName)
                 .collect(Collectors.joining(", "));
