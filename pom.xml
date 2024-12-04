@@ -20,6 +20,7 @@
     <properties>
         <maven.compiler.target>21</maven.compiler.target>
         <maven.compiler.source>21</maven.compiler.source>
+        <junit-jupiter.version>5.11.0</junit-jupiter.version>
     </properties>
 
     <dependencies>
@@ -29,6 +30,14 @@
             <version>5.11.3</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

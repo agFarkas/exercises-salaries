@@ -1,6 +1,6 @@
 package hu.epam.test.exercise.evaluation.operations.validation;
 
-import hu.epam.test.exercise.common.util.StringUtils;
+import hu.epam.test.exercise.common.util.StringUtil;
 import hu.epam.test.exercise.model.Employee;
 import hu.epam.test.exercise.common.model.ErrorMessage;
 
@@ -24,7 +24,7 @@ public class EmployeeIdValidator extends EmployeeLogicalValidator {
     private List<ErrorMessage> validateUniqueIds(List<Employee> employees) {
         var nonUniqueIds = collectNonUniqueIds(employees);
 
-        if (!StringUtils.isBlank(nonUniqueIds)) {
+        if (!StringUtil.isBlank(nonUniqueIds)) {
             return Collections.singletonList(ErrorMessage.of(ERROR_MESSAGE_PATTERN__NON_UNIQUE_IDS.formatted(nonUniqueIds)));
         }
 

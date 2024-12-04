@@ -1,6 +1,6 @@
 package hu.epam.test.exercise.evaluation.operations.evaluation;
 
-import hu.epam.test.exercise.common.util.CollectionUtils;
+import hu.epam.test.exercise.common.util.CollectionUtil;
 import hu.epam.test.exercise.model.Employee;
 
 import java.math.BigDecimal;
@@ -86,7 +86,7 @@ public class ManagerSalaryDifferenceEvaluator {
     }
 
     public boolean isLessThanMinimum() {
-        if (CollectionUtils.isEmpty(subordinates)) {
+        if (CollectionUtil.isEmpty(subordinates)) {
             return false;
         }
 
@@ -94,7 +94,7 @@ public class ManagerSalaryDifferenceEvaluator {
     }
 
     public boolean isMoreThanMaximum() {
-        if (CollectionUtils.isEmpty(subordinates)) {
+        if (CollectionUtil.isEmpty(subordinates)) {
             return false;
         }
 

@@ -1,6 +1,6 @@
 package hu.epam.test.exercise.evaluation.operations.validation;
 
-import hu.epam.test.exercise.common.util.CollectionUtils;
+import hu.epam.test.exercise.common.util.CollectionUtil;
 import hu.epam.test.exercise.model.Employee;
 import hu.epam.test.exercise.common.model.ErrorMessage;
 
@@ -29,7 +29,7 @@ public class EmployeeReportingLineValidator extends EmployeeLogicalValidator {
 
         errorMessages.addAll(validateNoEmployeeAssignedToThemself(employees));
 
-        if(CollectionUtils.isEmpty(errorMessages)){
+        if(CollectionUtil.isEmpty(errorMessages)){
             errorMessages.addAll(validateStraightReportingLines(employees));
         };
 

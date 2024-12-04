@@ -2,7 +2,7 @@ package hu.epam.test.exercise.common.validation;
 
 import hu.epam.test.exercise.common.exception.ValidationException;
 import hu.epam.test.exercise.common.model.ErrorMessage;
-import hu.epam.test.exercise.common.util.CollectionUtils;
+import hu.epam.test.exercise.common.util.CollectionUtil;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +21,7 @@ public abstract class AbstractValidator<T> {
     protected abstract List<ErrorMessage> validateElements(List<T> elements);
 
     private void requireNoError(List<ErrorMessage> errorMessages) {
-        if (!CollectionUtils.isEmpty(errorMessages)) {
+        if (!CollectionUtil.isEmpty(errorMessages)) {
             var errorMessagesJoined = errorMessages.stream()
                     .map(errorMessage -> "\t" + errorMessage.getText())
                     .collect(Collectors.joining(ERROR_MESSAGE_DELIMITER));

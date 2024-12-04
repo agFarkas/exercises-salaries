@@ -12,7 +12,6 @@ import java.util.List;
 import static hu.epam.test.exercise.common.model.EmployeeField.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class EmployeeUtilTest {
 

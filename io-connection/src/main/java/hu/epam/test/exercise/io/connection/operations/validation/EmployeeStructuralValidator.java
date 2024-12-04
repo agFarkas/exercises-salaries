@@ -2,8 +2,8 @@ package hu.epam.test.exercise.io.connection.operations.validation;
 
 import hu.epam.test.exercise.common.model.EmployeeField;
 import hu.epam.test.exercise.common.model.ErrorMessage;
-import hu.epam.test.exercise.common.util.CollectionUtils;
-import hu.epam.test.exercise.common.util.StringUtils;
+import hu.epam.test.exercise.common.util.CollectionUtil;
+import hu.epam.test.exercise.common.util.StringUtil;
 import hu.epam.test.exercise.common.validation.AbstractValidator;
 
 
@@ -44,7 +44,7 @@ public class EmployeeStructuralValidator extends AbstractValidator<String[]> {
 
         return employeeLines.stream()
                 .map(employeeLine -> validateEmployeeLine(employeeLine, lineNumber.incrementAndGet()))
-                .filter(list -> !CollectionUtils.isEmpty(list))
+                .filter(list -> !CollectionUtil.isEmpty(list))
                 .map(errorMessages -> convertToJoinedIndividualErrorMessages(errorMessages, lineNumber.get()))
                 .map(ErrorMessage::of)
                 .toList();
@@ -112,7 +112,7 @@ public class EmployeeStructuralValidator extends AbstractValidator<String[]> {
 
     private Optional<ErrorMessage> validateText(String[] employeeLine, EmployeeField fieldName) {
         var text = getValue(employeeLine, fieldName);
-        if (StringUtils.isBlank(text)) {
+        if (StringUtil.isBlank(text)) {
             return Optional.of(ErrorMessage.of(ERROR_MESSAGE_PATTERN__FIELD_IS_BLANK.formatted(fieldName.getFieldName())));
         }
 

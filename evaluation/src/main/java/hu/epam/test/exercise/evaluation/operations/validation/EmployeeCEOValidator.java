@@ -1,15 +1,12 @@
 package hu.epam.test.exercise.evaluation.operations.validation;
 
-import hu.epam.test.exercise.common.util.CollectionUtils;
+import hu.epam.test.exercise.common.util.CollectionUtil;
 import hu.epam.test.exercise.model.Employee;
 import hu.epam.test.exercise.common.model.ErrorMessage;
-
-
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-
 
 public class EmployeeCEOValidator extends EmployeeLogicalValidator {
 
@@ -36,7 +33,7 @@ public class EmployeeCEOValidator extends EmployeeLogicalValidator {
                 .map(Employee::getId)
                 .toList();
 
-        if (CollectionUtils.isEmpty(ceoIds)) {
+        if (CollectionUtil.isEmpty(ceoIds)) {
             errorMessages.add(ErrorMessage.of(ERROR_MESSAGE_PATTERN__CEOS_NO));
         } else if (ceoIds.size() > 1) {
             errorMessages.add(ErrorMessage.of(ERROR_MESSAGE_PATTERN__CEOS_MULTIPLE.formatted(ceoIds)));

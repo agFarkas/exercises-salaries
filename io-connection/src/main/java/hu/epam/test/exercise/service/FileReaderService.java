@@ -1,6 +1,6 @@
 package hu.epam.test.exercise.service;
 
-import hu.epam.test.exercise.common.util.StringUtils;
+import hu.epam.test.exercise.common.util.StringUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +15,7 @@ public class FileReaderService {
     private static final String DELIMITER = ",";
 
     public List<String[]> readTableLines(String fileName) {
-        if (StringUtils.isBlank(fileName)) {
+        if (StringUtil.isBlank(fileName)) {
             throw new RuntimeException("The filename is blank!");
         }
 
