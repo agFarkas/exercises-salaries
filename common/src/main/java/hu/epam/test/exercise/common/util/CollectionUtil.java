@@ -3,7 +3,7 @@ package hu.epam.test.exercise.common.util;
 import java.util.Collection;
 import java.util.Objects;
 
-public class CollectionUtil {
+public final class CollectionUtil {
 
     private CollectionUtil() {}
 

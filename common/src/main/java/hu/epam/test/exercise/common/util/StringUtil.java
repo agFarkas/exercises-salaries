@@ -2,7 +2,7 @@ package hu.epam.test.exercise.common.util;
 
 import java.util.Objects;
 
-public class StringUtil {
+public final class StringUtil {
 
     private StringUtil() {}
 
