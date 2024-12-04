@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class HeaderValidatorTest extends TestParent {
+class HeaderValidatorTest extends TestParent {
 
     private final HeaderValidator headerValidator = new HeaderValidator();
 

@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EmployeeReportingLineEvaluatorTest {
+class EmployeeReportingLineEvaluatorTest {
 
     private final List<Employee> allEmployees = List.of(
             Employee.of(1, "John", "Doe", 105000, null),

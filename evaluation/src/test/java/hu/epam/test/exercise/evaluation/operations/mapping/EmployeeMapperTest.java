@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EmployeeMapperTest {
+class EmployeeMapperTest {
 
     private final EmployeeMapper employeeMapper = new EmployeeMapper();
 

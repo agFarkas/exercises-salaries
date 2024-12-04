@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
-public class EmployeeEvaluatorTest {
+class EmployeeEvaluatorTest {
 
     private EmployeeEvaluator employeeEvaluator = new EmployeeEvaluator();
 

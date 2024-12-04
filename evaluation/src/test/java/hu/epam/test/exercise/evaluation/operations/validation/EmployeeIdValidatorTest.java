@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EmployeeIdValidatorTest {
+class EmployeeIdValidatorTest {
 
     private final EmployeeIdValidator employeeIdValidator = new EmployeeIdValidator();
 

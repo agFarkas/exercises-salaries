@@ -7,7 +7,7 @@ import java.io.UncheckedIOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class FileReaderServiceTest extends TestParent {
+class FileReaderServiceTest extends TestParent {
 
     private final FileReaderService fileReaderService = new FileReaderService();
 
