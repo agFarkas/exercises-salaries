@@ -6,18 +6,14 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
+import static hu.epam.test.exercise.common.DelimiterConstants.DELIMITER_COMMA;
+
 public class TestParent {
-    private static final String DELIMITER = ",";
 
-    protected static String getAbsoluteFilePathOfResource(String fileName) {
-        return TestParent.class.getClassLoader()
-                .getResource(fileName)
-                .getFile();
-    }
-
-    public List<String[]> readTableLines(String fileName) {
+    protected List<String[]> readTableLines(String fileName) {
         var file = new File(getAbsoluteFilePathOfResource(fileName));
 
         try (var scanner = new Scanner(new FileInputStream(file))) {
@@ -25,7 +21,7 @@ public class TestParent {
 
             while (scanner.hasNextLine()) {
                 var lineArray = scanner.nextLine()
-                        .split(DELIMITER);
+                        .split(DELIMITER_COMMA);
                 lines.add(lineArray);
             }
 
@@ -34,4 +30,11 @@ public class TestParent {
             throw new UncheckedIOException(ex);
         }
     }
+
+    protected String getAbsoluteFilePathOfResource(String fileName) {
+        return Objects.requireNonNull(TestParent.class.getClassLoader()
+                        .getResource(fileName))
+                .getFile();
+    }
+
 }

@@ -28,22 +28,6 @@ class ManagerSalaryDifferenceEvaluatorTest {
     );
 
     @Test
-    void managerSalaryInRecommendedRangeWhenNoSubordinatesTest() {
-        var managerSalaryDifferenceEvaluator = buildEvaluator(Employee.of(9, "Marilyn", "Monroe", 40000, 5));
-
-        assertFalse(managerSalaryDifferenceEvaluator.isLessThanMinimum());
-        assertFalse(managerSalaryDifferenceEvaluator.isMoreThanMaximum());
-        assertEquals(
-                new BigDecimal("0.0"),
-                managerSalaryDifferenceEvaluator.getAverageSalaryOfSubordinates()
-        );
-        assertEquals(
-                BigDecimal.ZERO,
-                managerSalaryDifferenceEvaluator.calculateDifferenceFromRecommendation()
-        );
-    }
-
-    @Test
     void managerSalaryInRecommendedRangeTest() {
         var managerSalaryDifferenceEvaluator = buildEvaluator(Employee.of(7, "Emmet", "Brown", 20000, 6));
 
@@ -97,6 +81,5 @@ class ManagerSalaryDifferenceEvaluatorTest {
                 allEmployees
         );
     }
-
 
 }

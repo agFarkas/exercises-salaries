@@ -31,8 +31,9 @@ class EmployeeCEOValidatorTest {
                         Employee.of(3, "Han", "Solo", 72000, 1)
                 )));
 
-        assertEquals("Error(s) in validation:\n" +
-                "\tThere must be exactly one CEO. Multiple CEOs were actually provided as follows by ID: [1, 2]", exception.getMessage());
+        assertEquals("""
+                Error(s) in validation:
+                \tThere must be exactly one CEO. Multiple CEOs were actually provided as follows by ID: [1, 2]""", exception.getMessage());
     }
 
     @Test
@@ -45,7 +46,8 @@ class EmployeeCEOValidatorTest {
                         Employee.of(3, "Han", "Solo", 72000, 1)
                 )));
 
-        assertEquals("Error(s) in validation:\n" +
-                "\tThere must be exactly one CEO. No CEO was actually provided.", exception.getMessage());
+        assertEquals("""
+                Error(s) in validation:
+                \tThere must be exactly one CEO. No CEO was actually provided.""", exception.getMessage());
     }
 }

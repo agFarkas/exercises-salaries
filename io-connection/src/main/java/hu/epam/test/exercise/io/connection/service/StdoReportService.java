@@ -7,5 +7,4 @@ public class StdoReportService extends AbstractReportService {
     public StdoReportService(EmployeeEvaluator employeeEvaluator) {
         super(employeeEvaluator, System.out);
     }
-
 }

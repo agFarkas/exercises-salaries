@@ -6,8 +6,6 @@ import hu.epam.test.exercise.common.util.CollectionUtil;
 import hu.epam.test.exercise.common.util.StringUtil;
 import hu.epam.test.exercise.common.validation.AbstractListValidator;
 
-
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +15,6 @@ import java.util.stream.Stream;
 
 import static hu.epam.test.exercise.common.model.EmployeeField.*;
 import static hu.epam.test.exercise.common.util.EmployeeUtil.*;
-
 
 
 public class EmployeeStructuralValidator extends AbstractListValidator<String[]> {
@@ -96,16 +93,16 @@ public class EmployeeStructuralValidator extends AbstractListValidator<String[]>
     }
 
     private Optional<ErrorMessage> validateNullableNumber(String[] employeeLine, EmployeeField fieldName) {
-        if(employeeLine.length <= indexOfFieldName(fieldName)) {
+        if (employeeLine.length <= indexOfFieldName(fieldName)) {
             return Optional.empty();
         }
 
         var numberText = getValue(employeeLine, fieldName);
-            try {
-                Integer.parseInt(numberText);
-            } catch (NumberFormatException ex) {
-                return Optional.of(ErrorMessage.of(ERROR_MESSAGE_PATTERN__NOT_A_NUMBER.formatted(fieldName.getFieldName())));
-            }
+        try {
+            Integer.parseInt(numberText);
+        } catch (NumberFormatException ex) {
+            return Optional.of(ErrorMessage.of(ERROR_MESSAGE_PATTERN__NOT_A_NUMBER.formatted(fieldName.getFieldName())));
+        }
 
         return Optional.empty();
     }
@@ -121,7 +118,7 @@ public class EmployeeStructuralValidator extends AbstractListValidator<String[]>
 
     private String convertToJoinedIndividualErrorMessages(List<ErrorMessage> errorMessages, int lineNumber) {
         var detailedErrorMessages = errorMessages.stream()
-                .map(errorMessage -> "\t\t" + errorMessage.getText())
+                .map(errorMessage -> LINE_WITH_DOUBLE_INDENT.formatted(errorMessage.getText()))
                 .collect(Collectors.joining(ERROR_MESSAGE_DELIMITER));
 
         return ERROR_MESSAGE_PATTERN__INDIVIDUAL_DETAILED.formatted(lineNumber) + detailedErrorMessages;

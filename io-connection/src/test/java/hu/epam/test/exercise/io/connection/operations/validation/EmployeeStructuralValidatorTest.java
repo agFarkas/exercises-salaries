@@ -26,12 +26,13 @@ class EmployeeStructuralValidatorTest extends TestParent {
                 () -> employeeStructuralValidator.validate(EmployeeUtil.getEmployeeLines(tableLines))
         );
 
-        assertEquals("Error(s) in validation:\n" +
-                        "\tError(s) in validation of employee line 1\n" +
-                        "\t\tfirstName is blank, but must be provided.\n" +
-                        "\tError(s) in validation of employee line 2\n" +
-                        "\t\tlastName is blank, but must be provided.\n" +
-                        "\t\tsalary is blank, but must be provided.",
+        assertEquals("""
+                        Error(s) in validation:
+                        \tError(s) in validation of employee line 1
+                        \t\tfirstName is blank, but must be provided.
+                        \tError(s) in validation of employee line 2
+                        \t\tlastName is blank, but must be provided.
+                        \t\tsalary is blank, but must be provided.""",
                 exception.getMessage());
     }
 
@@ -44,11 +45,12 @@ class EmployeeStructuralValidatorTest extends TestParent {
                 () -> employeeStructuralValidator.validate(EmployeeUtil.getEmployeeLines(tableLines))
         );
 
-        assertEquals("Error(s) in validation:\n" +
-                "\tError(s) in validation of employee line 1\n" +
-                "\t\tsalary is expected to be a number, but is not.\n" +
-                "\tError(s) in validation of employee line 5\n" +
-                "\t\tId is expected to be a number, but is not.", exception.getMessage());
+        assertEquals("""
+                Error(s) in validation:
+                \tError(s) in validation of employee line 1
+                \t\tsalary is expected to be a number, but is not.
+                \tError(s) in validation of employee line 5
+                \t\tId is expected to be a number, but is not.""", exception.getMessage());
     }
 
     @Test
@@ -60,10 +62,11 @@ class EmployeeStructuralValidatorTest extends TestParent {
                 () -> employeeStructuralValidator.validate(EmployeeUtil.getEmployeeLines(tableLines))
         );
 
-        assertEquals("Error(s) in validation:\n" +
-                "\tError(s) in validation of employee line 3\n" +
-                "\t\tLine 3 should have 5 separated fields, but it has actually 3.\n" +
-                "\tError(s) in validation of employee line 4\n" +
-                "\t\tLine 4 should have 5 separated fields, but it has actually 6.", exception.getMessage());
+        assertEquals("""
+                Error(s) in validation:
+                \tError(s) in validation of employee line 3
+                \t\tLine 3 should have 5 separated fields, but it has actually 3.
+                \tError(s) in validation of employee line 4
+                \t\tLine 4 should have 5 separated fields, but it has actually 6.""", exception.getMessage());
     }
 }

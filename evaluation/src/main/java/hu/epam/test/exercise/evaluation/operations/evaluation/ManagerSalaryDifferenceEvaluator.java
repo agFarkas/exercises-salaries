@@ -16,19 +16,16 @@ public class ManagerSalaryDifferenceEvaluator {
     private final Employee manager;
     private final List<Employee> subordinates;
 
-    private final BigDecimal managerSalary;
+    private BigDecimal managerSalary;
 
-    private final BigDecimal averageSalaryOfSubordinates;
+    private BigDecimal averageSalaryOfSubordinates;
 
 
     private BigDecimal rate;
 
     public ManagerSalaryDifferenceEvaluator(Employee manager, List<Employee> allEmployees) {
         this.manager = manager;
-        this.managerSalary = BigDecimal.valueOf(manager.getSalary());
-
         this.subordinates = obtainSubordinates(manager, allEmployees);
-        this.averageSalaryOfSubordinates = BigDecimal.valueOf(calculateAverageSalary(subordinates));
     }
 
     private List<Employee> obtainSubordinates(Employee manager, List<Employee> allEmployees) {
@@ -41,7 +38,7 @@ public class ManagerSalaryDifferenceEvaluator {
         return Objects.equals(employee.getManagerId(), manager.getId());
     }
 
-    private static double calculateAverageSalary(List<Employee> subordinates) {
+    private double calculateAverageSalary(List<Employee> subordinates) {
         double average = subordinates.stream()
                 .mapToDouble(Employee::getSalary)
                 .average()
@@ -51,7 +48,7 @@ public class ManagerSalaryDifferenceEvaluator {
     }
 
     private static double round(double average, int precision) {
-        if(average == 0) {
+        if (average == 0) {
             return 0;
         }
 
@@ -85,42 +82,46 @@ public class ManagerSalaryDifferenceEvaluator {
         return isLessThanMinimum() || isMoreThanMaximum();
     }
 
-    public boolean isLessThanMinimum() {
-        if (CollectionUtil.isEmpty(subordinates)) {
-            return false;
-        }
+    public List<Employee> getSubordinates() {
+        return subordinates;
+    }
 
-        return calculateMinimumToAverage().compareTo(managerSalary) > 0;
+    public boolean isLessThanMinimum() {
+        return getAverageSalaryOfSubordinates()
+                .multiply(
+                        MINIMUM_RECOMMENDED_PLUS_RATE.add(BigDecimal.ONE)
+                ).compareTo(getManagerSalary()) > 0;
     }
 
     public boolean isMoreThanMaximum() {
-        if (CollectionUtil.isEmpty(subordinates)) {
-            return false;
-        }
-
-        return calculateMaximumToAverage().compareTo(managerSalary) < 0;
-    }
-
-    private BigDecimal calculateMinimumToAverage() {
-        return averageSalaryOfSubordinates.multiply(
-                MINIMUM_RECOMMENDED_PLUS_RATE.add(BigDecimal.ONE)
-        );
-    }
-
-    private BigDecimal calculateMaximumToAverage() {
-        return averageSalaryOfSubordinates.multiply(
-                MAXIMUM_RECOMMENDED_PLUS_RATE.add(BigDecimal.ONE)
-        );
+        return getAverageSalaryOfSubordinates()
+                .multiply(
+                        MAXIMUM_RECOMMENDED_PLUS_RATE.add(BigDecimal.ONE)
+                ).compareTo(getManagerSalary()) < 0;
     }
 
     public BigDecimal calculateDifferenceFromRecommendation() {
         if (isLessThanMinimum()) {
-            return managerSalary.subtract(calculateMinimumToAverage());
+            return getManagerSalary().subtract(getAverageSalaryOfSubordinates()
+                    .multiply(
+                            MINIMUM_RECOMMENDED_PLUS_RATE.add(BigDecimal.ONE)
+                    ));
         } else if (isMoreThanMaximum()) {
-            return managerSalary.subtract(calculateMaximumToAverage());
+            return getManagerSalary().subtract(getAverageSalaryOfSubordinates()
+                    .multiply(
+                            MAXIMUM_RECOMMENDED_PLUS_RATE.add(BigDecimal.ONE)
+                    ));
         }
 
         return BigDecimal.ZERO;
+    }
+
+    public BigDecimal getManagerSalary() {
+        if (Objects.isNull(managerSalary)) {
+            managerSalary = BigDecimal.valueOf(getManager().getSalary());
+        }
+
+        return managerSalary;
     }
 
     public Employee getManager() {
@@ -128,6 +129,13 @@ public class ManagerSalaryDifferenceEvaluator {
     }
 
     public BigDecimal getAverageSalaryOfSubordinates() {
+        if (CollectionUtil.isEmpty(subordinates)) {
+            return BigDecimal.ZERO;
+        }
+
+        if (Objects.isNull(averageSalaryOfSubordinates)) {
+            averageSalaryOfSubordinates = BigDecimal.valueOf(calculateAverageSalary(subordinates));
+        }
         return averageSalaryOfSubordinates;
     }
 

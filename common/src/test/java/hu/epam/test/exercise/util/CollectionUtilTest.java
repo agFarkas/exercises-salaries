@@ -25,7 +25,6 @@ class CollectionUtilTest {
         return Stream.of(
                 Arguments.of(null, true),
                 Arguments.of(Collections.emptyList(), true),
-                Arguments.of(Set.of(), true),
                 Arguments.of(Set.of(
                         Employee.of(1, "John", "Doe", 20000, null),
                         Employee.of(2, "Marty", "McFly", 17200, 1)

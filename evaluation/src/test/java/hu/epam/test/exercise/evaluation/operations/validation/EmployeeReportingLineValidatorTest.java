@@ -32,8 +32,9 @@ class EmployeeReportingLineValidatorTest {
                 ))
         );
 
-        assertEquals("Error(s) in validation:\n" +
-                        "\tManager 100 not found by Id.",
+        assertEquals("""
+                        Error(s) in validation:
+                        \tManager 100 not found by Id.""",
                 exception.getMessage());
     }
 
@@ -47,8 +48,9 @@ class EmployeeReportingLineValidatorTest {
                         Employee.of(3, "Han", "Solo", 72000, 1)
                 ))
         );
-        assertEquals("Error(s) in validation:\n" +
-                        "\tEmployee 2 has assingned to themself as manager.",
+        assertEquals("""
+                        Error(s) in validation:
+                        \tEmployee 2 has assingned to themself as manager.""",
                 exception.getMessage()
         );
     }
@@ -67,11 +69,12 @@ class EmployeeReportingLineValidatorTest {
         );
 
         assertEquals(
-                "Error(s) in validation:\n" +
-                        "\tCircular reporting line by ids: 2 -> 5 -> 4 -> 3 -> 2\n" +
-                        "\tCircular reporting line by ids: 3 -> 2 -> 5 -> 4 -> 3\n" +
-                        "\tCircular reporting line by ids: 4 -> 3 -> 2 -> 5 -> 4\n" +
-                        "\tCircular reporting line by ids: 5 -> 4 -> 3 -> 2 -> 5"
+                """
+                        Error(s) in validation:
+                        \tCircular reporting line by ids: 2 -> 5 -> 4 -> 3 -> 2
+                        \tCircular reporting line by ids: 3 -> 2 -> 5 -> 4 -> 3
+                        \tCircular reporting line by ids: 4 -> 3 -> 2 -> 5 -> 4
+                        \tCircular reporting line by ids: 5 -> 4 -> 3 -> 2 -> 5"""
                 ,exception.getMessage()
         );
     }

@@ -36,8 +36,9 @@ class EmployeeIdValidatorTest {
                 () -> employeeIdValidator.validate(allEmployees)
         );
 
-        assertEquals("Error(s) in validation:\n" +
-                "\tThe following Id-s are not unique: 1, 5",
+        assertEquals("""
+                        Error(s) in validation:
+                        \tThe following Id-s are not unique: 1, 5""",
                 exception.getMessage());
     }
 }

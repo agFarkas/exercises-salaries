@@ -16,6 +16,7 @@ import static hu.epam.test.exercise.common.util.EmployeeUtil.getEmployeeLines;
 
 public class Application {
 
+    private final AbstractValidator<String[]> argumentValidator;
     private final AbstractInputReaderService inputReaderService;
 
     private final AbstractValidator<List<String[]>> structuralValidator;
@@ -26,12 +27,14 @@ public class Application {
     private final StdoReportService reportService;
 
     public Application(
+            AbstractValidator<String[]> argumentValidator,
             AbstractInputReaderService inputReaderService,
             AbstractValidator<List<String[]>> structuralValidator,
             AbstractValidator<List<Employee>> logicalValidator,
             AbstractListMapper<String[], Employee> employeeListMapper,
             StdoReportService reportService
     ) {
+        this.argumentValidator = argumentValidator;
         this.inputReaderService = inputReaderService;
         this.structuralValidator = structuralValidator;
         this.logicalValidator = logicalValidator;
@@ -39,10 +42,13 @@ public class Application {
         this.reportService = reportService;
     }
 
-    public void run() {
+    public void run(String[] args) {
         try {
+            argumentValidator.validate(args);
+
             var lines = inputReaderService.readTableLines();
             structuralValidator.validate(lines);
+
             var employees = employeeListMapper.mapAll(getEmployeeLines(lines));
             logicalValidator.validate(employees);
 

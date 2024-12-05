@@ -38,8 +38,9 @@ class HeaderValidatorTest extends TestParent {
         );
 
         assertEquals(
-                "Error(s) in validation:\n" +
-                "\tThe file headline must be exactly as follows: Id, firstName, lastName, salary, managerId",
+                """
+                        Error(s) in validation:
+                        \tThe file headline must be exactly as follows: Id, firstName, lastName, salary, managerId""",
                 exception.getMessage()
         );
     }

@@ -9,9 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-public abstract class AbstractInputReaderService {
+import static hu.epam.test.exercise.common.DelimiterConstants.DELIMITER_COMMA;
 
-    private static final String DELIMITER = ",";
+public abstract class AbstractInputReaderService {
 
     public List<String[]> readTableLines() {
         try (var scanner = new Scanner(makeInputStream())) {
@@ -21,7 +21,7 @@ public abstract class AbstractInputReaderService {
                 var line = scanner.nextLine();
 
                 if (!StringUtil.isBlank(line)) {
-                    var lineArray = line.split(DELIMITER);
+                    var lineArray = line.split(DELIMITER_COMMA);
                     lines.add(lineArray);
                 }
             }

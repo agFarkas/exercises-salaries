@@ -6,13 +6,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static hu.epam.test.exercise.common.DelimiterConstants.DELIMITER_COMMA;
+import static hu.epam.test.exercise.common.DelimiterConstants.DELIMITER_COMMA_WITH_SPACE;
+
 public final class EmployeeUtil {
 
     private EmployeeUtil() {}
 
     public static final String FIELD_NAMES_JOINED = Stream.of(EmployeeField.values())
             .map(EmployeeField::getFieldName)
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(DELIMITER_COMMA_WITH_SPACE));
 
     public static List<String> getFieldNames() {
         return Stream.of(EmployeeField.values())

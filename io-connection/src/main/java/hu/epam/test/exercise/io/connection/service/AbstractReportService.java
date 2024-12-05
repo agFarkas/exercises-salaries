@@ -1,5 +1,6 @@
 package hu.epam.test.exercise.io.connection.service;
 
+import hu.epam.test.exercise.common.util.CollectionUtil;
 import hu.epam.test.exercise.evaluation.operations.evaluation.EmployeeEvaluator;
 import hu.epam.test.exercise.evaluation.operations.evaluation.EmployeeReportingLineEvaluator;
 import hu.epam.test.exercise.evaluation.operations.evaluation.ManagerSalaryDifferenceEvaluator;
@@ -17,6 +18,7 @@ public abstract class AbstractReportService {
 
     private static final String REPORT_PATTERN__MANAGER_PAID = "\t%s %s (%s) earns %s. The average salary of their subordinates is %s. So the difference is %s from the recommendation.";
     private static final String REPORT_PATTERN__EMPLOYEE_WITH_TOO_LONG_REPORTING_LINE = "\t%s %s (%s) - %s long reporting line (%s more)";
+    private static final String REPORT__NO_EMPLOYEE_FOUND = "\tNo employee found for this condition.";
 
     private final EmployeeEvaluator employeeEvaluator;
     private final PrintStream printStream;
@@ -57,33 +59,43 @@ public abstract class AbstractReportService {
                 EmployeeReportingLineEvaluator.MAXIMUM_RECOMMENDED_LENGTH
         ));
 
-        employeeReportingLineEvaluators.forEach(evaluator -> {
-            var employee = evaluator.getEmployee();
-            printStream.println(REPORT_PATTERN__EMPLOYEE_WITH_TOO_LONG_REPORTING_LINE.formatted(
-                    employee.getFirstName(), employee.getLastName(),
-                    employee.getId(),
-                    evaluator.getReportingLine(),
-                    evaluator.getDifference()
-            ));
-        });
+        if (CollectionUtil.isEmpty(employeeReportingLineEvaluators)) {
+            printStream.println(REPORT__NO_EMPLOYEE_FOUND);
+        } else {
+            employeeReportingLineEvaluators.forEach(evaluator -> {
+                var employee = evaluator.getEmployee();
+                printStream.println(REPORT_PATTERN__EMPLOYEE_WITH_TOO_LONG_REPORTING_LINE.formatted(
+                        employee.getFirstName(), employee.getLastName(),
+                        employee.getId(),
+                        evaluator.getReportingLine(),
+                        evaluator.getDifference()
+                ));
+            });
+        }
     }
 
     private void reportManagersOutOfSalaryRecommendations(
             List<ManagerSalaryDifferenceEvaluator> managerSalaryDifferenceEvaluators,
             Predicate<ManagerSalaryDifferenceEvaluator> filterPredicate
     ) {
-        managerSalaryDifferenceEvaluators.stream()
+        var managersWithSalaryOutOfRange = managerSalaryDifferenceEvaluators.stream()
                 .filter(filterPredicate)
-                .forEach(evaluator -> {
-                    var manager = evaluator.getManager();
+                .toList();
 
-                    printStream.println(REPORT_PATTERN__MANAGER_PAID.formatted(
-                            manager.getFirstName(), manager.getLastName(),
-                            manager.getId(),
-                            manager.getSalary(),
-                            evaluator.getAverageSalaryOfSubordinates(),
-                            evaluator.calculateDifferenceFromRecommendation()
-                    ));
-                });
+        if(CollectionUtil.isEmpty(managersWithSalaryOutOfRange)) {
+            printStream.println(REPORT__NO_EMPLOYEE_FOUND);
+        }
+
+        managersWithSalaryOutOfRange.forEach(evaluator -> {
+            var manager = evaluator.getManager();
+
+            printStream.println(REPORT_PATTERN__MANAGER_PAID.formatted(
+                    manager.getFirstName(), manager.getLastName(),
+                    manager.getId(),
+                    manager.getSalary(),
+                    evaluator.getAverageSalaryOfSubordinates(),
+                    evaluator.calculateDifferenceFromRecommendation()
+            ));
+        });
     }
 }

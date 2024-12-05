@@ -1,6 +1,7 @@
 package hu.epam.test.exercise.common.util;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 
 public final class CollectionUtil {

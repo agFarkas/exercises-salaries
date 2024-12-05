@@ -9,9 +9,10 @@ import hu.epam.test.exercise.common.model.ErrorMessage;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static hu.epam.test.exercise.common.DelimiterConstants.DELIMITER_COMMA_WITH_SPACE;
+
 public class EmployeeIdValidator extends AbstractListValidator<Employee> {
 
-    private static final String DELIMITER = ", ";
     private static final String ERROR_MESSAGE_PATTERN__NON_UNIQUE_IDS = "The following Id-s are not unique: %s";
 
     @Override
@@ -38,7 +39,7 @@ public class EmployeeIdValidator extends AbstractListValidator<Employee> {
                 .stream()
                 .filter(entry -> entry.getValue() > 1)
                 .map(entry -> entry.getKey().toString())
-                .collect(Collectors.joining(DELIMITER));
+                .collect(Collectors.joining(DELIMITER_COMMA_WITH_SPACE));
     }
 
     private Map<Integer, Integer> countIds(List<Employee> employees) {

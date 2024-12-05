@@ -6,6 +6,7 @@ import hu.epam.test.exercise.evaluation.operations.validation.EmployeeCEOValidat
 import hu.epam.test.exercise.evaluation.operations.validation.EmployeeIdValidator;
 import hu.epam.test.exercise.evaluation.operations.validation.EmployeeReportingLineValidator;
 import hu.epam.test.exercise.evaluation.operations.validation.LogicalValidator;
+import hu.epam.test.exercise.io.connection.operations.validation.ArgumentValidator;
 import hu.epam.test.exercise.io.connection.operations.validation.EmployeeStructuralValidator;
 import hu.epam.test.exercise.io.connection.operations.validation.HeaderValidator;
 import hu.epam.test.exercise.io.connection.operations.validation.StructuralValidator;
@@ -15,13 +16,10 @@ import hu.epam.test.exercise.io.connection.service.StdoReportService;
 public class Main {
 
     public static void main(String[] args) {
-        if (args.length == 0) {
-            System.out.println("No file path provided.");
-            return;
-        }
 
         new Application(
-                new FileReaderService(args[0]),
+                new ArgumentValidator(),
+                new FileReaderService(),
                 new StructuralValidator(
                         new HeaderValidator(),
                         new EmployeeStructuralValidator()
@@ -35,7 +33,7 @@ public class Main {
                 new StdoReportService(
                         new EmployeeEvaluatorImpl()
                 )
-        ).run();
+        ).run(args);
     }
 
 }

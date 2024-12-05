@@ -4,7 +4,7 @@ The process goes through the following steps:
 2) evaluation
 3) reporting
 
-The validation constists of
+The validation consists of
 - structural validation
   1) The header line must consist of the following fields case-sensitively: Id,firstName,lastName,salary,managerId
   2) Every value of an employee is mandatory except managerId
@@ -13,3 +13,5 @@ The validation constists of
   2) Every employee assigned as manager for any other employee must exist in the file
   3) Circular reporting lines are not allowed.
   4) Assigning a manager to themself is not allowed
+
+The process skips blank lines.

@@ -16,10 +16,11 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static hu.epam.test.exercise.common.DelimiterConstants.DELIMITER_ARROW;
+
 
 public class EmployeeReportingLineValidator extends AbstractListValidator<Employee> {
 
-    private static final String CHAIN_DELIMITER = " -> ";
     private static final String ERROR_MESSAGE_PATTERN__CIRCULAR_REPORTING_LINE = "Circular reporting line by ids: %s";
     private static final String ERROR_MESSAGE_PATTERN__ASSIGNED_TO_THEMSELF = "Employee %s has assingned to themself as manager.";
     private static final String ERROR_MESSAGE_PATTERN__MANAGER_NOT_FOUND = "Manager %s not found by Id.";
@@ -65,7 +66,7 @@ public class EmployeeReportingLineValidator extends AbstractListValidator<Employ
             if (!reportingLine.add(currentEmployee.get())) {
                 var employeeIdsJoined = concatStream(reportingLine, currentEmployee.get())
                         .map(employee -> Integer.toString(employee.getId()))
-                        .collect(Collectors.joining(CHAIN_DELIMITER));
+                        .collect(Collectors.joining(DELIMITER_ARROW));
                 return Optional.of(
                         ErrorMessage.of(ERROR_MESSAGE_PATTERN__CIRCULAR_REPORTING_LINE.formatted(employeeIdsJoined))
                 );
