@@ -13,10 +13,9 @@ class FileReaderServiceTest extends TestParent {
     @Test
     void readFileTest() {
         var resourceFilePath = getAbsoluteFilePathOfResource("employees-valid.csv");
-        var fileReaderService = new FileReaderService()
-                .setFileName(resourceFilePath);
+        var fileReaderService = new FileReaderService();
 
-        var lines = fileReaderService.readTableLines();
+        var lines = fileReaderService.readTableLines(resourceFilePath);
         assertEquals(6, lines.size());
         assertEquals(5, lines.getFirst().length);
     }
@@ -26,8 +25,7 @@ class FileReaderServiceTest extends TestParent {
         assertThrowsExactly(
                 UncheckedIOException.class,
                 () -> new FileReaderService()
-                        .setFileName("invalid-dummy.csv")
-                        .readTableLines()
+                        .readTableLines("invalid-dummy.csv")
         );
     }
 }

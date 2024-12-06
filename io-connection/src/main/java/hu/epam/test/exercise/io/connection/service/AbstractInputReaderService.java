@@ -13,8 +13,8 @@ import static hu.epam.test.exercise.common.DelimiterConstants.DELIMITER_COMMA;
 
 public abstract class AbstractInputReaderService {
 
-    public List<String[]> readTableLines() {
-        try (var scanner = new Scanner(makeInputStream())) {
+    public List<String[]> readTableLines(String instruction) {
+        try (var scanner = new Scanner(makeInputStream(instruction))) {
             var lines = new LinkedList<String[]>();
 
             while (scanner.hasNextLine()) {
@@ -32,5 +32,5 @@ public abstract class AbstractInputReaderService {
         }
     }
 
-    protected abstract InputStream makeInputStream() throws IOException;
+    protected abstract InputStream makeInputStream(String instruction) throws IOException;
 }

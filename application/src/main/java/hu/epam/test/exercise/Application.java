@@ -45,7 +45,7 @@ public class Application {
         try {
             argumentValidator.validate(args);
 
-            var lines = inputReaderService.readTableLines();
+            var lines = inputReaderService.readTableLines(args[0]);
             structuralValidator.validate(lines);
 
             var employees = employeeListMapper.mapAll(getEmployeeLines(lines));

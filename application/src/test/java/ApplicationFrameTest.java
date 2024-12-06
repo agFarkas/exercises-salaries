@@ -105,9 +105,9 @@ public class ApplicationFrameTest {
         doThrow(new UncheckedIOException(
                 new FileNotFoundException("Dummy file not found.")
         )).when(mockFileReaderService)
-                .readTableLines();
+                .readTableLines(any());
 
-        application.run(new String[0]);
+        application.run(new String[]{"DummyFile.csv"});
 
         assertEquals(List.of(
                 "Error with resources:",
@@ -117,7 +117,7 @@ public class ApplicationFrameTest {
 
     @Test
     void otherExceptionPrintTest() {
-        when(mockFileReaderService.readTableLines())
+        when(mockFileReaderService.readTableLines(any()))
                 .thenReturn(List.of(
                         new String[]{"Id", "firstName", "lastName", "salary", "managerId"},
                         new String[]{"1", "John", "Doe", "60000"}
@@ -127,7 +127,7 @@ public class ApplicationFrameTest {
                 .when(mockEmployeeListMapper)
                 .mapAll(any());
 
-        application.run(new String[0]);
+        application.run(new String[]{"DummyFile.csv"});
 
         assertEquals(List.of(
                 "Error while reporting:",
