@@ -4,7 +4,6 @@ import hu.epam.test.exercise.common.model.ErrorMessage;
 import hu.epam.test.exercise.common.util.EmployeeUtil;
 import hu.epam.test.exercise.common.validation.AbstractListValidator;
 
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;

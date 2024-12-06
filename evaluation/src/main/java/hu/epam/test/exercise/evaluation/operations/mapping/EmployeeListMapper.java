@@ -2,7 +2,6 @@ package hu.epam.test.exercise.evaluation.operations.mapping;
 
 import hu.epam.test.exercise.model.Employee;
 
-
 import static hu.epam.test.exercise.common.model.EmployeeField.*;
 import static hu.epam.test.exercise.common.util.EmployeeUtil.getValue;
 import static hu.epam.test.exercise.common.util.EmployeeUtil.indexOfFieldName;

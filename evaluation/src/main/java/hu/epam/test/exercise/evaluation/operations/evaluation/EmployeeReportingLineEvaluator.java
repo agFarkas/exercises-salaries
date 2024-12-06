@@ -2,7 +2,6 @@ package hu.epam.test.exercise.evaluation.operations.evaluation;
 
 import hu.epam.test.exercise.model.Employee;
 
-import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;

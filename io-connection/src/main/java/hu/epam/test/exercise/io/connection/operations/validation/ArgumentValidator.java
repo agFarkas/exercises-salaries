@@ -1,16 +1,9 @@
 package hu.epam.test.exercise.io.connection.operations.validation;
 
 
-
 import hu.epam.test.exercise.common.exception.ValidationException;
 import hu.epam.test.exercise.common.util.StringUtil;
-import hu.epam.test.exercise.common.validation.AbstractListValidator;
 import hu.epam.test.exercise.common.validation.AbstractValidator;
-
-import java.util.List;
-
-import static hu.epam.test.exercise.common.util.EmployeeUtil.getEmployeeLines;
-import static hu.epam.test.exercise.common.util.EmployeeUtil.getHeaderLine;
 
 
 public class ArgumentValidator extends AbstractValidator<String[]> {

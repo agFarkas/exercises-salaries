@@ -4,7 +4,6 @@ import hu.epam.test.exercise.common.validation.AbstractListValidator;
 import hu.epam.test.exercise.common.validation.AbstractValidator;
 import hu.epam.test.exercise.model.Employee;
 
-
 import java.util.List;
 
 

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static hu.epam.test.exercise.common.DelimiterConstants.DELIMITER_COMMA;
 import static hu.epam.test.exercise.common.DelimiterConstants.DELIMITER_COMMA_WITH_SPACE;
 
 public final class EmployeeUtil {

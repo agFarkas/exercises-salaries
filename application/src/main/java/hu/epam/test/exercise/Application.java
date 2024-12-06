@@ -7,7 +7,6 @@ import hu.epam.test.exercise.io.connection.service.AbstractInputReaderService;
 import hu.epam.test.exercise.io.connection.service.StdoReportService;
 import hu.epam.test.exercise.model.Employee;
 
-
 import java.io.UncheckedIOException;
 import java.util.List;
 

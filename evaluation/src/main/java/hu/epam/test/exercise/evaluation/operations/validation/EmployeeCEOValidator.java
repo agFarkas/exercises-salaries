@@ -1,9 +1,9 @@
 package hu.epam.test.exercise.evaluation.operations.validation;
 
+import hu.epam.test.exercise.common.model.ErrorMessage;
 import hu.epam.test.exercise.common.util.CollectionUtil;
 import hu.epam.test.exercise.common.validation.AbstractListValidator;
 import hu.epam.test.exercise.model.Employee;
-import hu.epam.test.exercise.common.model.ErrorMessage;
 
 import java.util.LinkedList;
 import java.util.List;
