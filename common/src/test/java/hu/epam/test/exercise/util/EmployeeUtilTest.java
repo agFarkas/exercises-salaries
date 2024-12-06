@@ -67,9 +67,29 @@ class EmployeeUtilTest {
     }
 
     @Test
-    void getValueTest() {
+    void getValueOfCeoTest() {
         var employeeLines = EmployeeUtil.getEmployeeLines(tableLines);
-        var value = EmployeeUtil.getValue(employeeLines.getFirst(), EmployeeField.FIRST_NAME);
-        assertEquals("John", value);
+        var firstEmployeeLine = employeeLines.getFirst();
+
+        assertEquals("John", EmployeeUtil.getValue(firstEmployeeLine, EmployeeField.FIRST_NAME));
+        assertNull(EmployeeUtil.getValue(firstEmployeeLine, EmployeeField.MANAGER_ID));
+    }
+
+    @Test
+    void getValueOfOtherEmployeeTest() {
+        var employeeLines = EmployeeUtil.getEmployeeLines(tableLines);
+        var secondEmployeeLine = employeeLines.get(1);
+
+        assertEquals("Martin", EmployeeUtil.getValue(secondEmployeeLine, EmployeeField.FIRST_NAME));
+        assertEquals("123", EmployeeUtil.getValue(secondEmployeeLine, EmployeeField.MANAGER_ID));
+    }
+
+    @Test
+    void indexOfFieldNameTest() {
+        assertEquals(0, EmployeeUtil.indexOfFieldName(EmployeeField.ID));
+        assertEquals(1, EmployeeUtil.indexOfFieldName(EmployeeField.FIRST_NAME));
+        assertEquals(2, EmployeeUtil.indexOfFieldName(EmployeeField.LAST_NAME));
+        assertEquals(3, EmployeeUtil.indexOfFieldName(EmployeeField.SALARY));
+        assertEquals(4, EmployeeUtil.indexOfFieldName(EmployeeField.MANAGER_ID));
     }
 }

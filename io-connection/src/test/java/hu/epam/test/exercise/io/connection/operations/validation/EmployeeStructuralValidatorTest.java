@@ -29,10 +29,10 @@ class EmployeeStructuralValidatorTest extends TestParent {
         assertEquals("""
                         Error(s) in validation:
                         \tError(s) in validation of employee line 1
-                        \t\tfirstName is blank, but must be provided.
+                        \t\tfirstName is mandatory, but missing.
                         \tError(s) in validation of employee line 2
-                        \t\tlastName is blank, but must be provided.
-                        \t\tsalary is blank, but must be provided.""",
+                        \t\tlastName is mandatory, but missing.
+                        \t\tsalary is mandatory, but missing.""",
                 exception.getMessage());
     }
 

@@ -32,7 +32,7 @@
         </dependency>
         <dependency>
             <groupId>hu.epam.test.exercise</groupId>
-            <artifactId>evaluation</artifactId>
+            <artifactId>operation</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>

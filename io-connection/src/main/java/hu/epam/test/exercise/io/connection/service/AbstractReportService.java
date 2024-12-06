@@ -1,15 +1,19 @@
 package hu.epam.test.exercise.io.connection.service;
 
 import hu.epam.test.exercise.common.util.CollectionUtil;
-import hu.epam.test.exercise.evaluation.operations.evaluation.EmployeeEvaluator;
-import hu.epam.test.exercise.evaluation.operations.evaluation.EmployeeReportingLineEvaluator;
-import hu.epam.test.exercise.evaluation.operations.evaluation.ManagerSalaryDifferenceEvaluator;
+import hu.epam.test.exercise.operations.evaluation.EmployeeEvaluator;
+import hu.epam.test.exercise.operations.evaluation.EmployeeReportingLineEvaluator;
+import hu.epam.test.exercise.operations.evaluation.ManagerSalaryDifferenceEvaluator;
 import hu.epam.test.exercise.model.Employee;
 
 import java.io.PrintStream;
 import java.util.List;
 import java.util.function.Predicate;
 
+/**
+ * Report service for the evaluation. On this level, the output is not specified, it should be specifically determined
+ * in the subclasses.
+ */
 public abstract class AbstractReportService {
 
     private static final String REPORT_PATTERN__SUMMARY_MANAGERS_UNDERPAID = "Managers with less salary than %s%% of the average salary of their subordinates:";
@@ -23,11 +27,20 @@ public abstract class AbstractReportService {
     private final EmployeeEvaluator employeeEvaluator;
     private final PrintStream printStream;
 
+    /**
+     * @param employeeEvaluator is an implementor of the {@link EmployeeEvaluator}.
+     * @param printStream       the output stream to print the report lines on.
+     */
     protected AbstractReportService(EmployeeEvaluator employeeEvaluator, PrintStream printStream) {
         this.employeeEvaluator = employeeEvaluator;
         this.printStream = printStream;
     }
 
+    /**
+     * Executse the reporting by printing the results to the {@link PrintStream} specified by the subClass.
+     *
+     * @param employees The list of all {@link Employee}s to make the report about.
+     */
     public void report(List<Employee> employees) {
         reportManagersWithSalariesOutOfRecommendations(employees);
         reportEmployeesWithTooLongReportingLine(employees);
@@ -82,7 +95,7 @@ public abstract class AbstractReportService {
                 .filter(filterPredicate)
                 .toList();
 
-        if(CollectionUtil.isEmpty(managersWithSalaryOutOfRange)) {
+        if (CollectionUtil.isEmpty(managersWithSalaryOutOfRange)) {
             printStream.println(REPORT__NO_EMPLOYEE_FOUND);
         }
 

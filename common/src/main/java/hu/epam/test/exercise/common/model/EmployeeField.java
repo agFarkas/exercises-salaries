@@ -1,5 +1,8 @@
 package hu.epam.test.exercise.common.model;
 
+/**
+ * Defines the accepted case-sensitive column names and their required order in the raw data resource
+ */
 public enum EmployeeField {
     ID("Id"),
     FIRST_NAME("firstName"),

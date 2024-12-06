@@ -16,18 +16,29 @@ import java.util.stream.Stream;
 import static hu.epam.test.exercise.common.model.EmployeeField.*;
 import static hu.epam.test.exercise.common.util.EmployeeUtil.*;
 
-
+/**
+ * Validator for making structural validation. This validator validates the raw data set for
+ * <p>the number of filled fields,
+ * <p>the mandatory datas,
+ * <p>the numeric formats
+ */
 public class EmployeeStructuralValidator extends AbstractListValidator<String[]> {
 
     private static final String ERROR_MESSAGE_PATTERN__INDIVIDUAL_DETAILED = "Error(s) in validation of employee line %s\n";
 
-    private static final String ERROR_MESSAGE_PATTERN__FIELD_IS_BLANK = "%s is blank, but must be provided.";
+    private static final String ERROR_MESSAGE_PATTERN__FIELD_IS_BLANK = "%s is mandatory, but missing.";
 
     private static final String ERROR_MESSAGE_PATTERN__NOT_A_NUMBER = "%s is expected to be a number, but is not.";
 
     private static final String ERROR_MESSAGE_PATTERN_CHUNK__FIELD_NUMBER_OF_LINE_DIFFERS_FROM_HEADER =
             "should have %s separated fields, but it has actually %s.";
 
+    /**
+     * Validates the datas for their structural validity described in the doc of {@link EmployeeStructuralValidator} class.
+     *
+     * @param employeeLines The list to validate.
+     * @return A list of {@link ErrorMessage}s collecting all structural invalidities found.
+     */
     @Override
     protected List<ErrorMessage> validateElements(List<String[]> employeeLines) {
         var errorMessages = new LinkedList<ErrorMessage>();
@@ -74,43 +85,43 @@ public class EmployeeStructuralValidator extends AbstractListValidator<String[]>
                 || employeeLine.length > getNumberOfFieldNames();
     }
 
-    private Optional<ErrorMessage> validateNumber(String[] employeeLine, EmployeeField fieldName) {
-        var textErrorMessageOpt = validateText(employeeLine, fieldName);
+    private Optional<ErrorMessage> validateNumber(String[] employeeLine, EmployeeField employeeField) {
+        var textErrorMessageOpt = validateText(employeeLine, employeeField);
 
         if (textErrorMessageOpt.isPresent()) {
             return textErrorMessageOpt;
         }
 
-        var numberText = getValue(employeeLine, fieldName);
+        var numberText = getValue(employeeLine, employeeField);
 
         try {
             Integer.parseInt(numberText);
         } catch (NumberFormatException ex) {
-            return Optional.of(ErrorMessage.of(ERROR_MESSAGE_PATTERN__NOT_A_NUMBER.formatted(fieldName.getFieldName())));
+            return Optional.of(ErrorMessage.of(ERROR_MESSAGE_PATTERN__NOT_A_NUMBER.formatted(employeeField.getFieldName())));
         }
 
         return Optional.empty();
     }
 
-    private Optional<ErrorMessage> validateNullableNumber(String[] employeeLine, EmployeeField fieldName) {
-        if (employeeLine.length <= indexOfFieldName(fieldName)) {
+    private Optional<ErrorMessage> validateNullableNumber(String[] employeeLine, EmployeeField employeeField) {
+        if (employeeLine.length <= indexOfFieldName(employeeField)) {
             return Optional.empty();
         }
 
-        var numberText = getValue(employeeLine, fieldName);
+        var numberText = getValue(employeeLine, employeeField);
         try {
             Integer.parseInt(numberText);
         } catch (NumberFormatException ex) {
-            return Optional.of(ErrorMessage.of(ERROR_MESSAGE_PATTERN__NOT_A_NUMBER.formatted(fieldName.getFieldName())));
+            return Optional.of(ErrorMessage.of(ERROR_MESSAGE_PATTERN__NOT_A_NUMBER.formatted(employeeField.getFieldName())));
         }
 
         return Optional.empty();
     }
 
-    private Optional<ErrorMessage> validateText(String[] employeeLine, EmployeeField fieldName) {
-        var text = getValue(employeeLine, fieldName);
+    private Optional<ErrorMessage> validateText(String[] employeeLine, EmployeeField employeeField) {
+        var text = getValue(employeeLine, employeeField);
         if (StringUtil.isBlank(text)) {
-            return Optional.of(ErrorMessage.of(ERROR_MESSAGE_PATTERN__FIELD_IS_BLANK.formatted(fieldName.getFieldName())));
+            return Optional.of(ErrorMessage.of(ERROR_MESSAGE_PATTERN__FIELD_IS_BLANK.formatted(employeeField.getFieldName())));
         }
 
         return Optional.empty();

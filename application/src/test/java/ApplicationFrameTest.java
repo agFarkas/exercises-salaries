@@ -1,7 +1,7 @@
 import hu.epam.test.exercise.Application;
 import hu.epam.test.exercise.common.exception.ValidationException;
-import hu.epam.test.exercise.evaluation.operations.mapping.EmployeeListMapper;
-import hu.epam.test.exercise.evaluation.operations.validation.LogicalValidator;
+import hu.epam.test.exercise.operations.mapping.EmployeeListMapper;
+import hu.epam.test.exercise.operations.validation.LogicalValidator;
 import hu.epam.test.exercise.io.connection.operations.validation.ArgumentValidator;
 import hu.epam.test.exercise.io.connection.operations.validation.StructuralValidator;
 import hu.epam.test.exercise.io.connection.service.FileReaderService;

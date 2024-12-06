@@ -17,8 +17,8 @@ class CollectionUtilTest {
 
     @ParameterizedTest
     @MethodSource("provideCollectionTestArgumets")
-    void emptyCollectionTest(Collection<?> collection, boolean expectedToBeBlank) {
-        assertEquals(expectedToBeBlank, CollectionUtil.isEmpty(collection));
+    void emptyCollectionTest(Collection<?> collection, boolean expectedToBeEmpty) {
+        assertEquals(expectedToBeEmpty, CollectionUtil.isEmpty(collection));
     }
 
     static Stream<Arguments> provideCollectionTestArgumets() {

@@ -2,6 +2,9 @@ package hu.epam.test.exercise.model;
 
 import java.util.Objects;
 
+/**
+ * Entity object to represent one certain employee.
+ */
 public final class Employee {
 
     private final int id;

@@ -1,5 +1,8 @@
 package hu.epam.test.exercise.common.model;
 
+/**
+ * Specific object carrying error message
+ */
 public class ErrorMessage {
 
     private final String text;
@@ -8,6 +11,12 @@ public class ErrorMessage {
         this.text = text;
     }
 
+    /**
+     * Creates an instance of {@link ErrorMessage}.
+     *
+     * @param text The message text
+     * @return new instance of {@link ErrorMessage}
+     */
     public static ErrorMessage of(String text) {
         return new ErrorMessage(text);
     }

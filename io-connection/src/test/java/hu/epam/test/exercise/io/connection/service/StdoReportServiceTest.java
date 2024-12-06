@@ -1,8 +1,8 @@
 package hu.epam.test.exercise.io.connection.service;
 
-import hu.epam.test.exercise.evaluation.operations.evaluation.EmployeeEvaluator;
-import hu.epam.test.exercise.evaluation.operations.evaluation.EmployeeReportingLineEvaluator;
-import hu.epam.test.exercise.evaluation.operations.evaluation.ManagerSalaryDifferenceEvaluator;
+import hu.epam.test.exercise.operations.evaluation.EmployeeEvaluator;
+import hu.epam.test.exercise.operations.evaluation.EmployeeReportingLineEvaluator;
+import hu.epam.test.exercise.operations.evaluation.ManagerSalaryDifferenceEvaluator;
 import hu.epam.test.exercise.model.Employee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
